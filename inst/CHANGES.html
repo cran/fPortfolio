@@ -12,7 +12,7 @@
 
 <P>
 <B><FONT FACE="Arial,Helvetica,Monaco"><FONT SIZE="2">
-    2005-04-18 Built 201.10059</FONT></FONT>
+    2005-05-16 Built 201.10060</FONT></FONT>
 </B></P>
 
 
@@ -25,8 +25,74 @@ fBasics, fCalendar, fSeries, fMultivar, fExtremes, fOptions, fPortfolio
 
 
 ________________________________________________________________________________
+Rmetrics VERSION 201.10060
+
+
+2005-05-12 fSeries: xmpGarchpqModelling
+    An example file has been added which shows step by step how to
+    program functions for Garch(p,q) modelling, including functions
+    for simulation, parameter estimation and forecasting.
+    
+2005-05-12 fSeries: A3-GarchOxModelling
+    Ox Interface for GARCH modelling has been updated to version
+    G@ARCH 4.0.
+
+2005-05-12 fSeries: A1-ArmaModelling
+    A new optional argument named "rseed" added to function "armaSim".
+    This allows to set the random number seed.
+
+2005-05-04 fOptions: E2-GammaFunctions
+    Bug in "erf" removed.
+
+2005-05-02 fBasics: A2-BasicStatistics
+    The function "stdev" computes the standard deviation for a vector
+    or matrix and was introduced for SPlus compatibility. Under R use 
+    the function "sd".    
+    
+2005-05-02 fMultivar: B1-MatrixAddon:
+    A function named "pdl" has been added which returns a regressor matrix 
+    suitable for polynomial distributed lags. 
+    
+2005-05-02 fMultivar: B1-MatrixAddon:
+    A function named "tslag" has beeen added which returns a lagged/led 
+    vector or matrix for given time series data.    
+       
+2005-05-02 fBasics: A2-BasicStatistics
+    The function "basicStats" now allows also for matrix, data frame
+    and timeSeries inputs.
+
+2005-04-28 fCalendar: C1-timeSeriesClass
+    The time Series class got a new slot named "@recordIDs". The
+    slot is represented by a data.frame whcih can be used for
+    data record identification. This may be useful for FX data
+    sets to name the contributor, to keep delays from the feed
+    or other information. For Futures this may for example name
+    the futures contract.
+    
+2005-04-28 fCalendar: C1-timeSeriesClass
+    The arguments named "colNames" have been changed to "units", 
+    so that the naming of columns becomes unique in all 'timeSeries'
+    functions. Some time series functions got an additional
+    "units" argument.
+
+2005-04-27 fCalendar: A1-timeDateClass
+    New functions for objects of class 'timeDate' have been added: 
+    "isWeekday", "isWeekend", "isBizday", "weekDay".
+     
+2005-04-27 fCalendar: A1-timeDateClass
+    The ISO-8601 midnight standard has been implemented. Now 
+    "2005-01-01 24:00:00" is a valid date/time string.
+    
+2005-04-27 fCalendar: A1-timeDateClass
+    A bug in the ordering of dates for unordered 'timeDate' objects
+    has been removed.
+
+    + many other smaller improvements and fixings ...
+    
+________________________________________________________________________________
 Rmetrics VERSION 201.10059
 
+2005-04-18 released
 
 2005-04-05 fSseries: A3-LongMemoryModeling
     Nine functions have been added to estimate the self-similarity
