@@ -39,8 +39,8 @@
 
 \usage{
 portfolioMarkowitz(x, targetReturn, title = NULL, description = NULL)
-frontierMarkowitz(x, Rf = 0, length = 300, r.range = NULL, s.range = NULL, 
-	title = NULL, description = NULL, \dots)
+frontierMarkowitz(data, Rf = 0, short = FALSE, length = 300, r.range = NULL, 
+    s.range = NULL, title = NULL, description = NULL, \dots)
 montecarloMarkowitz(object, mc = 5000, doplot = FALSE, add = TRUE, \dots)
 
 \method{print}{fPFOLIO}(x, \dots)
@@ -53,6 +53,13 @@ montecarloMarkowitz(object, mc = 5000, doplot = FALSE, add = TRUE, \dots)
   
     \item{alpha}{
         a numeric value, the confidence interval, by default 0.05.
+        }
+    \item{data}{
+        [frontierMarkowitz] - \cr
+        either a rectangular time series object which can be
+        transformed into a matrix, or a list with two named entries,
+        \code{mu}, the returns of the multivariate series, and
+        \code{Sigma}, the covariance matrix of the multivariate series.
         }
     \item{description}{
         [portfolioMarkowitz][frontierMarkowitz] - \cr
@@ -90,6 +97,11 @@ montecarloMarkowitz(object, mc = 5000, doplot = FALSE, add = TRUE, \dots)
         [frontierMarkowitz] - \cr
         the number of random portfolios to be generated.
         }
+    \item{short}{
+        [frontierMarkowitz] - \cr
+        a logical flag, if set to TRUE short selling would be allowed 
+        otherwise not wich is the default setting.
+        }
     \item{targetReturn}{
         [portfolioMarkowitz] - \cr
         the target return, a numeric value.
@@ -100,7 +112,7 @@ montecarloMarkowitz(object, mc = 5000, doplot = FALSE, add = TRUE, \dots)
         object.
         }
     \item{which}{
-    	which of the five plots should be displayed? \code{which} can 
+        which of the five plots should be displayed? \code{which} can 
         be either a character string, \code{"all"} (displays all plots) 
         or \code{"ask"} (interactively asks which one to display), or a 
         vector of 6 logical values, for those elements which are set 
@@ -246,7 +258,7 @@ Huang C.J., Litzenberger R.H. (1988);
 
 
 \examples{
-## SOURCE("fPortfolio.B2-MarkowitzPortfolio")
+## SOURCE("fPortfolio.102C-MarkowitzPortfolio")
 
 \dontrun{
 ## berndtInvest -
