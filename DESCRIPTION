@@ -1,10 +1,10 @@
 Package: fPortfolio
-Version: 251.70
+Version: 260.72
 Date: 1997 - 2007
 Title: Rmetrics - Portfolio Selection and Optimization
 Author: Diethelm Wuertz and many others, see the SOURCE file
-Depends: R (>= 2.2.1), methods, robustbase, MASS, fEcofin, fCalendar, fBasics, fSeries, fMultivar, fExtremes, fCopulae, quadprog, lpSolve
-Maintainer: Diethelm Wuertz <wuertz@itp.phys.ethz.ch>
+Depends: R (>= 2.4.0), quadprog, lpSolve, MASS, fAssets
+Maintainer: Diethelm Wuertz and Rmetrics Core team <Rmetrics-core@r-project.org>
 Description: Environment for teaching "Financial Engineering and Computational Finance"
 NOTE: SEVERAL PARTS ARE STILL PRELIMINARY AND MAY BE CHANGED IN THE FUTURE.
       THIS TYPICALLY INCLUDES FUNCTION AND ARGUMENT NAMES,
@@ -13,4 +13,4 @@ LazyLoad: yes
 LazyData: yes
 License: GPL Version 2 or later
 URL: http://www.rmetrics.org
-Packaged: Tue Jul 10 06:54:48 2007; myself
+Packaged: Mon Oct  8 14:08:52 2007; myself
