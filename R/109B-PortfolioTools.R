@@ -28,7 +28,7 @@
 
 
 ################################################################################
-# FUNCTION:		   		DESCRIPTION:
+# FUNCTION:             DESCRIPTION:
 #  xmpBasics             Sets prompt
 #  xmpfBasics            Popups the example menu
 ################################################################################
@@ -37,44 +37,44 @@
 xmpPortfolio = 
 function(prompt = "") 
 {
-	invisible(prompt)
+    invisible(prompt)
 }
 
-	
+    
 # ------------------------------------------------------------------------------
 
 
 xmpfPortfolio = 
 function() 
-{ 	# A function implemented by Diethelm Wuertz
+{   # A function implemented by Diethelm Wuertz
 
-	# Description:
-	#	Popups the example menu
-	
-	# FUNCTION:
-	
-	# Popup:
-	path = paste(.Library,"/fPortfolio", sep = "") 
-	entries = .read.fPortfolioIndex (file.path(path, "demo", "00Index"))    
-	example = select.list(entries[,1])
-	selected = 0
-	for (i in 1:length(entries[,1])) {
-		if (example == entries[i,1]) selected = i}
-	if (example == "") {
-    	cat("\nNo demo selected\n")
+    # Description:
+    #   Popups the example menu
+    
+    # FUNCTION:
+    
+    # Popup:
+    path = paste(.Library,"/fPortfolio", sep = "") 
+    entries = .read.fPortfolioIndex (file.path(path, "demo", "00Index"))    
+    example = select.list(entries[,1])
+    selected = 0
+    for (i in 1:length(entries[,1])) {
+        if (example == entries[i,1]) selected = i}
+    if (example == "") {
+        cat("\nNo demo selected\n")
     } else {
-     	cat("\nLibrary: ", "fPortfolio", "\nExample: ", 
-       		entries[selected,1], "\nTitle:   ", entries[selected,2], "\n")
+        cat("\nLibrary: ", "fPortfolio", "\nExample: ", 
+            entries[selected,1], "\nTitle:   ", entries[selected,2], "\n")
         source(paste(path, "/demo/", example, ".R", sep = ""))
     }
     if (TRUE) {
-	    cat("\n") }
+        cat("\n") }
     
     # Return Value:
     invisible()
 }
 
-	
+    
 # ------------------------------------------------------------------------------
 
 
@@ -84,14 +84,14 @@ function (file)
     if (is.character(file)) {
         if (file == "") {
             file <- stdin()
-    	} else {
+        } else {
             file <- file(file, "r")
             on.exit(close(file))
         }
     }
     if (!inherits(file, "connection")) 
         stop(paste("argument", 
-        	sQuote("file"), "must be a character string or connection"))
+            sQuote("file"), "must be a character string or connection"))
     y <- matrix("", nr = 0, nc = 2)
     x <- paste(readLines(file), collapse = "\n")
     for (chunk in unlist(strsplit(x, "\n[       \n]*\n"))) {
@@ -102,9 +102,9 @@ function (file)
                 chunk <- gsub("\n[      ]+", "  ", chunk)
                 x <- strsplit(unlist(strsplit(chunk, "\n")), "[    ]")
                 cbind(unlist(lapply(x, "[[", 1)), unlist(lapply(x, 
-                  	function(t) {
-                    	paste(t[-c(1, which(nchar(t) == 0))], collapse = " ")
-                  	})))
+                    function(t) {
+                        paste(t[-c(1, which(nchar(t) == 0))], collapse = " ")
+                    })))
             }
         })
         if (!inherits(entries, "try-error") && NCOL(entries) == 2) 
@@ -114,7 +114,7 @@ function (file)
     y
 }
 
-	
+    
 ################################################################################
 
 

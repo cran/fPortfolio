@@ -27,6 +27,13 @@
     and Monte Carlo portfolios can also be evaluated.
     \cr
     
+    The functions are:
+    
+    \tabular{ll}{
+    \code{portfolioMarkowitz} \tab Optimize mean variance Markowitz portfolio, \cr
+    \code{frontierMarkowitz} \tab computes efficient frontier of portfolio, \cr
+    \code{montecarloMarkowitz} \tab creates randomly created portfolios. }
+       
 }
     
 
@@ -243,7 +250,6 @@ Huang C.J., Litzenberger R.H. (1988);
 
 \dontrun{
 ## berndtInvest -
-   xmpPortfolio("\nStart: Load monthly data set of returns > ")
    data(berndtInvest)
    # Exclude Date, Market and Interest Rate columns from data frame,
    # then multiply by 100 for percentual returns ...
@@ -251,25 +257,14 @@ Huang C.J., Litzenberger R.H. (1988);
    rownames(berndtAssets) = berndtInvest[, 1]
    head(berndtAssets)
    
-## Markowitz Portfolios:
-   myPortfolio = portfolioMarkowitz(berndtAssets, targetReturn = 20/100/12)
+## portfolioMarkowitz - 
+   myPortfolio = portfolioMarkowitz(x = berndtAssets, targetReturn = 20/100/12)
    print(myPortfolio)
-   pm = myPortfolio@pfolio$pm
-   ps = myPortfolio@pfolio$ps
-   pw = myPortfolio@pfolio$pw
-   pfolioTargetReturn(berndtAssets, pw)
-   pfolioTargetRisk(berndtAssets, pw)
    
-   myPortfolio = portfolioMarkowitz(berndtAssets, targetReturn = 20/100/12)
-   print(myPortfolio)
-   pm = myPortfolio@pfolio$pm; pm
-   ps = myPortfolio@pfolio$ps; ps
-   pw = myPortfolio@pfolio$pw; pw
-   pfolioTargetReturn(berndtAssets, pw)
-   pfolioTargetRisk(berndtAssets, pw)
- 
-## Plot results:
-   plot(myPortfolio)
+## pfolioTargetReturn -
+## pfolioTargetRisk -
+   pfolioTargetReturn(x = berndtAssets, weights = myPortfolio@pfolio$pw)
+   pfolioTargetRisk(x = berndtAssets, weights = myPortfolio@pfolio$pw)
 } 
 }
 

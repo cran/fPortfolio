@@ -30,9 +30,9 @@
 ################################################################################
 # FUNCTION:                 EFFICIENT FRONTIER:
 #  fPFOLIO                   S4 Portfolio Class
-#  portfolioMarkowitz        Mean Variance Markowitz Portfolio
 #  frontierMarkowitz         Efficient frontier of mean-var Portfolio
 #  montecarloMarkowitz       Adds randomly created portfolios
+#  portfolioMarkowitz        Mean Variance Markowitz (Target) Portfolio
 # METHODS:                  DESCRIPTION:        
 #  print.fPFOLIO             S3: Print method for objects of class fPFOLIO
 #  plot.fPFOLIO              S3: Plot method for objects of class fPFOLIO
@@ -62,65 +62,13 @@ setClass("fPFOLIO",
 # ------------------------------------------------------------------------------
 
 
-portfolioMarkowitz = 
-function(x, targetReturn, title = NULL, description = NULL) 
-{   # A function implemented by Diethelm Wuertz
-
-    # Description:
-    #   Optimizes a mean-var portfolio for a given desired return
-    
-    # Arguments:
-    #   x - portfolio of assets, a matrix or an object which can be 
-    #       transformed to a matrix
-    #   targetReturn - the desired return, pm must be smaller than the
-    #       maximum and larger than the minimum asset return. Short 
-    #       selling is not allowed.
-
-    # FUNCTION:
-   
-    # Transform to matrix:
-    x = as.matrix(x)
-    
-    # Quadratic Programming:
-    opt = .portfolio.optim(x = x, pm = targetReturn, covmat = cov(x))
-    pfolio$what = "portfolio"
-    pfolio$method = "QP"
-	pfolio$opt = opt
-	pfolio$pw = opt$pw
-	pfolio$pm = opt$pm
-	pfolio$ps = opt$ps
-      
-    # Title: 
-    if (is.null(title)) 
-        title = "Mean-Variance Portfolio Optimization"
-    
-    # Description:
-    if (is.null(description))
-        description = as.character(date())
-    
-    # Return Value:
-    new ("fPFOLIO", 
-        call = as.call(match.call()),
-        method = "Quadratic Programming", 
-        model = "Markowitz Portfolio",
-        data = as.data.frame(x), 
-        pfolio = pfolio, 
-        title = as.character(title),
-        description = as.character(description)
-    )     
-}
-
-    
-# ------------------------------------------------------------------------------
-
-
 frontierMarkowitz = 
 function(x, Rf = 0, length = 300, r.range = NULL, s.range = NULL, 
 title = NULL, description = NULL, ...)
 {   # A function implemented by Diethelm Wuertz
 
     # Description:
-    #   Calculates and plots the efficient frontier from a matrix
+    #   Calculates the efficient frontier from a matrix
     #   of either market or simulated assets given in matrix "x". 
     #   Each time series represents a column in this matrix.
   
@@ -182,7 +130,7 @@ title = NULL, description = NULL, ...)
         pm[k] = ef$pm
         ps[k] = ef$ps
         diversification[k] = length (ef$pw[ef$pw > 0.01])
-	}
+    }
 
     # Result:
     pfolio = list(
@@ -286,7 +234,7 @@ function(object, mc = 5000, doplot = FALSE, add = TRUE, ...)
         rp = weights %*% returns    
         sp = weights %*% covar %*% weights
         sp = sqrt(sp)   
-        if (add) points(sp, rp, cex=0.1)
+        if (add) points(sp, rp, cex = 0.1)
         ss[k] = sp
         rr[k] = rp 
     }
@@ -322,6 +270,63 @@ function(object, mc = 5000, doplot = FALSE, add = TRUE, ...)
     
     # Return Value
     invisible(keep)
+}
+
+
+# ------------------------------------------------------------------------------
+
+
+portfolioMarkowitz = 
+function(x, targetReturn, title = NULL, description = NULL) 
+{   # A function implemented by Diethelm Wuertz
+
+    # Description:
+    #   Optimizes a mean-var portfolio for a given desired return
+    
+    # Arguments:
+    #   x - portfolio of assets, a matrix or an object which can be 
+    #       transformed to a matrix
+    #   targetReturn - the desired return, pm must be smaller than the
+    #       maximum and larger than the minimum asset return. Short 
+    #       selling is not allowed.
+
+    # FUNCTION:
+   
+    # Transform to matrix:
+    x = as.matrix(x)
+    COV = cov(x)
+    
+    # Quadratic Programming:
+    pfolio = list()
+    pfolio$what = "portfolio"
+    pfolio$method = "QP"
+    opt = .portfolio.optim(x = x, pm = targetReturn, covmat = COV)
+    pfolio$pw = opt$pw
+    pfolio$pm = opt$pm
+    pfolio$ps = opt$ps  
+    pfolio$returns = apply(x, 2, mean)
+    pfolio$cov = COV  
+    pfolio$r.range = range(apply(x, 2, mean)) 
+    pfolio$s.range = c(0, max(sqrt(diag(COV))))
+    
+    # Title: 
+    if (is.null(title)) 
+        title = "Mean-Variance Portfolio Optimization"
+    
+    # Description:
+    if (is.null(description))
+        description = as.character(date())
+    
+    # Return Value:
+    new ("fPFOLIO", 
+        call = as.call(match.call()),
+        method = "Quadratic Programming", 
+        model = "Markowitz Portfolio",
+        data = as.data.frame(x), 
+        pfolio = pfolio, 
+        title = as.character(title),
+        description = as.character(description)
+    )     
 }
 
 
@@ -386,7 +391,7 @@ function(x, ...)
         # Equal Weights Portfolio:
         cat("\nEqual Portfolio:\n")
         cat("Risk:", round(pfolio$Rew, digits = r.digits), 
-        	"   Return:", round(pfolio$Sew, digits = s.digits), "\n") 
+            "   Return:", round(pfolio$Sew, digits = s.digits), "\n") 
     }
        
     # Description:
@@ -403,7 +408,7 @@ function(x, ...)
 
 plot.fPFOLIO =
 function(x, alpha = 0.05, mc = 500, which = "ask", ...)
-{	# A function implemented by Diethelm Wuertz
+{   # A function implemented by Diethelm Wuertz
 
     # Description:
     #   S3 Print Method for an object of class "fPFOLIO"
@@ -413,99 +418,119 @@ function(x, alpha = 0.05, mc = 500, which = "ask", ...)
     
     # FUNCTION:
     
+    # Check:
+    if (as.character(x@call[1]) == "portfolioMarkowitz")
+        stop("Objects returned by portfolioMarkowitz() cannot be plotted")
+    
     # Settings:
     .mcSteps <<- mc
     .alphaLevel <<- alpha
+    if (which[1] == "ask") {
+        .interactive <<- TRUE
+    } else {
+        .interactive <<- FALSE
+    }
+        
     
     # Plot Efficient Frontier:
     plot.1 <<- function(x) {
-	    pfolio = x@pfolio
-	    # Extract:
-	    dim = length(pfolio$returns)
-	    returns = pfolio$returns
-	    covar = pfolio$cov
-	    r.range = pfolio$r.range
-	    s.range = pfolio$s.range 
-	    diversification = pfolio$diversification
-	    # 1. Plot Graph Frame:
-	    plot(x = s.range, y = r.range, type = "n", 
-	        xlab = "Standard Deviation", ylab = "Return",
-	        main = "Mean Variance Portfolio", ...)  
-	    # 2. Plot Individual Assets:
-	    points(sqrt(diag(covar)), returns, pch = 20, col = "red")
-	    risk = sqrt(diag(covar)) + diff(s.range) / 50
-	    text(risk, returns, as.character(1:dim), col = "red")
-	    # 3. Plot Efficient Frontier:
-		points(pfolio$ps, pfolio$pm, col = "blue", cex = 0.1, ...) 
-		# 4. Add Tangency Portfolio:
-		# Find the Index (location of the Tangency Point):
-	    delta.pm = diff(pfolio$pm)
-	    delta.ps = diff(pfolio$ps)
-	    slope1 = slope.keep = delta.pm/delta.ps
-	    slope1 = slope1[slope.keep > 0]
-	    slope2 = (pfolio$pm-pfolio$Rf) / pfolio$ps
-	    diff.slope2 = diff(slope2) / 2
-	    slope2 = slope2[1:length(diff.slope2)] + diff.slope2
-	    slope2 = slope2[slope.keep > 0]
-	    cross = abs(slope2 - slope1)
-	    index = order(cross)[1]
-	    pm.pos = pfolio$pm[slope.keep > 0]
-	    ps.pos = pfolio$ps[slope.keep > 0]
-	    # Here are the mean return and the standard deviation
-	    mean.m = (pm.pos[index] + pm.pos[index+1]) / 2 
-	    sigma.m = (ps.pos[index] + ps.pos[index+1]) / 2
-	    # ... together with the slope
-	    slope = (mean.m - pfolio$Rf) / sigma.m
-	    # Add the Capital Market Line and the Tangency Point to the plot
-	    lines(c(0, max(pfolio$ps)), c(pfolio$Rf, slope* max(pfolio$ps) + 
-	    	pfolio$Rf), lwd = 2 )
-	    points(sigma.m, slope*sigma.m + pfolio$Rf, col = "green", 
-	    	pch = 20, cex = 1.5) 
-	    s.delta = max(pfolio$ps) / 10
-	    text(sigma.m - s.delta, slope*sigma.m + pfolio$Rf, "CML")
-	    # 5. Add Equal Weights Portfolio:
-	    # Calculate equally weighted portfolio:
-	    ew.weights = rep(1/dim, times = dim)
-	    Rew = (ew.weights %*% returns)
-	    Sew = (ew.weights %*% covar %*% ew.weights)
-	    points(sqrt(Sew), Rew, pch = 20, col = "steelblue4", cex = 1.5)
-	} 
-	# ... add Monte Carlo Portfolios:
+        pfolio = x@pfolio
+        # Extract:
+        dim = length(pfolio$returns)
+        returns = pfolio$returns
+        covar = pfolio$cov
+        r.range = pfolio$r.range
+        s.range = pfolio$s.range 
+        diversification = pfolio$diversification
+        # 1. Plot Graph Frame:
+        plot(x = s.range, y = r.range, type = "n", 
+            xlab = "Standard Deviation", ylab = "Return",
+            main = "Mean Variance Portfolio")  
+        # 2. Plot Individual Assets:
+        points(sqrt(diag(covar)), returns, pch = 20, col = "red")
+        risk = sqrt(diag(covar)) + diff(s.range) / 50
+        text(risk, returns, as.character(1:dim), col = "red")
+        # 3. Plot Efficient Frontier:
+        points(pfolio$ps, pfolio$pm, col = "blue", cex = 0.1) 
+        # 4. Add Tangency Portfolio:
+        # Find the Index (location of the Tangency Point):
+        delta.pm = diff(pfolio$pm)
+        delta.ps = diff(pfolio$ps)
+        slope1 = slope.keep = delta.pm/delta.ps
+        slope1 = slope1[slope.keep > 0]
+        slope2 = (pfolio$pm-pfolio$Rf) / pfolio$ps
+        diff.slope2 = diff(slope2) / 2
+        slope2 = slope2[1:length(diff.slope2)] + diff.slope2
+        slope2 = slope2[slope.keep > 0]
+        cross = abs(slope2 - slope1)
+        index = order(cross)[1]
+        pm.pos = pfolio$pm[slope.keep > 0]
+        ps.pos = pfolio$ps[slope.keep > 0]
+        # Here are the mean return and the standard deviation
+        mean.m = (pm.pos[index] + pm.pos[index+1]) / 2 
+        sigma.m = (ps.pos[index] + ps.pos[index+1]) / 2
+        # ... together with the slope
+        slope = (mean.m - pfolio$Rf) / sigma.m
+        # Add the Capital Market Line and the Tangency Point to the plot
+        lines(c(0, max(pfolio$ps)), c(pfolio$Rf, slope* max(pfolio$ps) + 
+            pfolio$Rf), lwd = 2 )
+        points(sigma.m, slope*sigma.m + pfolio$Rf, col = "green", 
+            pch = 20, cex = 1.5) 
+        s.delta = max(pfolio$ps) / 10
+        text(sigma.m - s.delta, slope*sigma.m + pfolio$Rf, "CML")
+        # 5. Add Equal Weights Portfolio:
+        # Calculate equally weighted portfolio:
+        ew.weights = rep(1/dim, times = dim)
+        Rew = (ew.weights %*% returns)
+        Sew = (ew.weights %*% covar %*% ew.weights)
+        points(sqrt(Sew), Rew, pch = 20, col = "steelblue4", cex = 1.5)
+    } 
+    # ... add Monte Carlo Portfolios:
     plot.2 <<- function(x) {
-	    plot.1(x)
-    	tmp = montecarloMarkowitz(x, mc = .mcSteps, doplot = FALSE, add = TRUE)
-	}   	
+        plot.1(x)
+        if (.interactive) {
+            mc = readline("Number of Monte Carlo Steps > ")
+            if (mc != "") .mcSteps <<- as.integer(mc) 
+            cat("\nTotal Number of Monte Carlo Steps:", .mcSteps, "\n")
+        }
+        tmp = montecarloMarkowitz(x, mc = .mcSteps, doplot = FALSE, add = TRUE)
+        
+    }       
     # Plot Tangency Weights:
     plot.3 <<- function(x) {
-    	pfolio = x@pfolio
-    	weights = pfolio$t.weights[pfolio$t.weights > 0]    
+        pfolio = x@pfolio
+        weights = pfolio$t.weights[pfolio$t.weights > 0]    
         pie(weights, col = rainbow(length(weights)), radius = 0.9, 
-        	main = "Tangency Portfolio Weights")
-	}   
+            main = "Tangency Portfolio Weights")
+    }   
     # Plot Diversification:
     plot.4 <<- function(x) {
-	    pfolio = x@pfolio
-	    xx = pfolio$pm
-	    yy = pfolio$diversification
-	    data = data.frame(cbind(xx, yy))
-	    plot(pfolio$pm, pfolio$diversification, type = "l", xlab = "Return", 
-	        ylab = "Number of Assets", main = "Diversification")
-	    zz = loess(yy ~ xx, data)
-	    lines(xx, zz$fit, col = "blue")
-	    points(pfolio$Rm, length(weights), col = "green", cex = 1.5)
-	}   
+        pfolio = x@pfolio
+        xx = pfolio$pm
+        yy = pfolio$diversification
+        data = data.frame(cbind(xx, yy))
+        plot(pfolio$pm, pfolio$diversification, type = "l", xlab = "Return", 
+            ylab = "Number of Assets", main = "Diversification")
+        zz = loess(yy ~ xx, data)
+        lines(xx, zz$fit, col = "blue")
+        points(pfolio$Rm, length(weights), col = "green", cex = 1.5)
+    }   
     # 5. Plot Cumulated Return:
     plot.5 <<- function(x) {
-	    pfolio = x@pfolio
-    	plot(cumsum(as.matrix(pfolio$data) %*% pfolio$t.weights), type = "l", 
-        	ylab = "Cumulated Return", main = "Portfolio Return")
-	}
-	# 6. Portfolio Risk Histogram
-	plot.6 <<- function(x) {
-		pfolioHist(x@data, weights = z@pfolio$t.weights, alpha = .alphaLevel)
-}
-	
-	# Plot:
+        pfolio = x@pfolio
+        plot(cumsum(as.matrix(pfolio$data) %*% pfolio$t.weights), 
+            type = "l", col = "steelblue",
+            ylab = "Cumulated Return", main = "Portfolio Return")
+        grid()
+    }
+    # 6. Portfolio Risk Histogram
+    plot.6 <<- function(x) {
+        pfolio = x@pfolio
+        weights = pfolio$t.weights[pfolio$t.weights > 0]    
+        pfolioHist(x@data, weights = weights, alpha = .alphaLevel)
+    }
+    
+    # Plot:
     interactivePlot(
         x = x,
         choices = c(
@@ -523,7 +548,7 @@ function(x, alpha = 0.05, mc = 500, which = "ask", ...)
             "plot.5",
             "plot.6"),
         which = which)
-	
+    
     
     # Return Value:
     invisible(x)
@@ -550,7 +575,7 @@ function(object, ...)
     
     # Plot:
     plot(object, ...)
-	        
+            
     # Return Value:
     invisible(object)
 }
@@ -566,7 +591,7 @@ function(object, Rf = 0, add = TRUE)
     # Description:
     #   This function calculates the properties of the tangency portfolio,
     #   and adds the "capital market line" and the tangency portfolio, Rm
-    #   and Sm, to the efficient frontier plot.
+    #   and Sm, to the efficient frontier.
     
     # NOTE: 
     #   Not for all risk free rates there exists a tangency portfolio!!!
@@ -664,8 +689,8 @@ function(object, add = TRUE)
     Rew = (ew.weights %*% means)[[1,1]]
     Sew = (ew.weights %*% covmat %*% ew.weights)[[1,1]]
     if (add) {
-    	points(sqrt(Sew), Rew, col = "steelblue4")
-	}
+        points(sqrt(Sew), Rew, col = "steelblue4")
+    }
     
     # Return Value:
     object$Rew = Rew
@@ -711,8 +736,11 @@ function(x, pm = mean(x), covmat = cov(x))
     res = .solve.QP(covmat, dvec, Amat, bvec = b0, meq = 2)
     y = t(res$solution %*% t(x))
     
+    # Result:
+    ans = list(pw = res$solution, px = y, pm = mean(y), ps = sd(y))
+    
     # Return value:
-    list(pw = res$solution, px = y, pm = mean(y), ps = sd(y))
+    ans
 }
     
 

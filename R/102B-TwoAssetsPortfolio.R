@@ -57,48 +57,48 @@ setClass("fPFOLIO2",
 
 frontierTwoAssetsMarkowitz =
 function(x, length = 100, title = NULL, description = NULL) 
-{	# A Function Implemented by Diethelm Wuertz
+{   # A Function Implemented by Diethelm Wuertz
 
-	# Description:
-	# 	Compute the efficient frontier for the Two-Assets
-	#	Mean-Variance Markowitz Portfolio. Return the weights
-	#	matrix, the portfolios return vector, and the portfolios
-	#	risk vector, which is the standard deviation.
-	
-	# Arguments
-	#	x - a two column matrix of asset returns
-	#	weights - a vector of weights, by default ranging from
-	#		zero to one in 100 steps
-	#	details - a logical flag, should details be printed?
-	#		By default TRUE.
-	
-	# FUNCTION:
-	
-	# Settings:
-	true.length = length - 1
-	weights = (0:true.length)/true.length
-	
-	# Compute Mean-Variance for a two assets portfolio:
-	data = as.matrix(x)
-	n = dim(data)[1]
-	w = weights
-	means = apply(data, 2, mean)
-	covmat = cov(data)
-	Rp <- Vp <- NULL
-	for ( i in 1:length(w) ) {
-		weights = c(w[i], 1-w[i]) 
-		Rp = c(Rp, (weights %*% means)[[1, 1]])
-		Vp = c(Vp, (weights %*% covmat %*% weights)[[1, 1]]) }
-	SDp = sqrt(Vp)
-	
-	# Weights: 
-	weights = cbind(w, 1-w)
-	
-	# Result:
-	pfolio = list(what = "twoassets",
-		weights = weights, pm = Rp, ps = SDp)
-	
-	# Title: 
+    # Description:
+    #   Compute the efficient frontier for the Two-Assets
+    #   Mean-Variance Markowitz Portfolio. Return the weights
+    #   matrix, the portfolios return vector, and the portfolios
+    #   risk vector, which is the standard deviation.
+    
+    # Arguments
+    #   x - a two column matrix of asset returns
+    #   weights - a vector of weights, by default ranging from
+    #       zero to one in 100 steps
+    #   details - a logical flag, should details be printed?
+    #       By default TRUE.
+    
+    # FUNCTION:
+    
+    # Settings:
+    true.length = length - 1
+    weights = (0:true.length)/true.length
+    
+    # Compute Mean-Variance for a two assets portfolio:
+    data = as.matrix(x)
+    n = dim(data)[1]
+    w = weights
+    means = apply(data, 2, mean)
+    covmat = cov(data)
+    Rp <- Vp <- NULL
+    for ( i in 1:length(w) ) {
+        weights = c(w[i], 1-w[i]) 
+        Rp = c(Rp, (weights %*% means)[[1, 1]])
+        Vp = c(Vp, (weights %*% covmat %*% weights)[[1, 1]]) 
+    }
+    SDp = sqrt(Vp)
+    
+    # Weights: 
+    weights = cbind(w, 1-w)
+    
+    # Result:
+    pfolio = list(what = "twoassets", weights = weights, pm = Rp, ps = SDp)
+    
+    # Title: 
     if (is.null(title)) 
         title = "Two Assets Markowitz Portfolio"
     
@@ -124,45 +124,45 @@ function(x, length = 100, title = NULL, description = NULL)
 
 frontierTwoAssetsCVaR =
 function(x, length = 100, alpha = 0.05, title = NULL, description = NULL)  
-{	# A Function Implemented by Diethelm Wuertz
-	
-	# Description:
-	# 	Computes the efficient frontier for the Two-Assets
-	#	Conditional Value-at-Risk Portfolio. Return the
-	#	weights matrix, the portfolios return vector, and 
-	#	the portfolios risk vector, which is the CVaR.
-	
-	# Arguments:
-	#
-	
-	# FUNCTION:
-	
-	# Settings:
-	true.length = length - 1
-	weights = (0:true.length)/true.length
-	data = as.matrix(x)
-	w = weights
-	
-	# Compute CVaR portfolio for a two assets portfolio:
-	n = dim(data)[1]
-	means = apply(data, 2, mean)
-	Rp <- CVaRp <- NULL
-	for (i in 1:length(w) ) {
-		weights = c(w[i], 1-w[i])
-		Rp = c(Rp, (weights %*% means)[[1, 1]])
-		CVaRp = c(CVaRp, -CVaR(data, weights, alpha)) }		
-		
-	Rp = as.vector(Rp)
-	CVaRp = as.vector(CVaRp)
-		
-	# Weights:
-	weights = cbind(w, 1-w)
-	
-	# Result:
-	pfolio = list(what = "twoassets", 
-		weightsA = weights[,1], pm = Rp, ps = CVaRp)
-		
-	# Title: 
+{   # A Function Implemented by Diethelm Wuertz
+    
+    # Description:
+    #   Computes the efficient frontier for the Two-Assets
+    #   Conditional Value-at-Risk Portfolio. Return the
+    #   weights matrix, the portfolios return vector, and 
+    #   the portfolios risk vector, which is the CVaR.
+    
+    # Arguments:
+    #
+    
+    # FUNCTION:
+    
+    # Settings:
+    true.length = length - 1
+    weights = (0:true.length)/true.length
+    data = as.matrix(x)
+    w = weights
+    
+    # Compute CVaR portfolio for a two assets portfolio:
+    n = dim(data)[1]
+    means = apply(data, 2, mean)
+    Rp <- CVaRp <- NULL
+    for (i in 1:length(w) ) {
+        weights = c(w[i], 1-w[i])
+        Rp = c(Rp, (weights %*% means)[[1, 1]])
+        CVaRp = c(CVaRp, -CVaR(data, weights, alpha)) }     
+        
+    Rp = as.vector(Rp)
+    CVaRp = as.vector(CVaRp)
+        
+    # Weights:
+    weights = cbind(w, 1-w)
+    
+    # Result:
+    pfolio = list(what = "twoassets", 
+        weightsA = weights[,1], pm = Rp, ps = CVaRp)
+        
+    # Title: 
     if (is.null(title)) 
         title = "Two Assets Markowitz Portfolio"
     
@@ -228,14 +228,14 @@ function(x, ...)
 
 
 # ------------------------------------------------------------------------------
-	
+    
 
 plot.fPFOLIO2 =
 function(x, ...)
 {
-	pfolio = x@pfolio
-	plot(pfolio$ps, pfolio$pm, xlab = "Risk", ylab = "Return",
-		main = x@title)
+    pfolio = x@pfolio
+    plot(pfolio$ps, pfolio$pm, xlab = "Risk", ylab = "Return",
+        main = x@title)
 }
 
 
@@ -245,8 +245,8 @@ function(x, ...)
 summary.fPFOLIO2 =
 function(object, ...)
 {
-	print(x = object, ...)
-	plot(x = object, ...)	
+    print(x = object, ...)
+    plot(x = object, ...)   
 }
 
 
