@@ -1,13 +1,4 @@
 
-#*******************************************************************************
-# fPortfolio - A SOFTWARE COLLECTION FOR FINANCIAL ENGINEERS
-# Portfolio Selection and Optimization
-#
-# collected by Diethelm Wuertz
-# Version 0.9
-#*******************************************************************************
-
-
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library General Public
 # License as published by the Free Software Foundation; either
@@ -15,52 +6,70 @@
 #
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU Library General Public License for more details.
 #
-# You should have received a copy of the GNU Library General 
-# Public License along with this library; if not, write to the 
-# Free Foundation, Inc., 59 Temple Place, Suite 330, Boston, 
+# You should have received a copy of the GNU Library General
+# Public License along with this library; if not, write to the
+# Free Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
-
-# Copyrights (C)
-# for this R-port: 
-#   1997 - 2007, Diethelm Wuertz, GPL
-#   Diethelm Wuertz <wuertz@itp.phys.ethz.ch>
-#   info@rmetrics.org
-#   www.rmetrics.org
-# for the code accessed (or partly included) from other R-ports:
-#   see R's copyright and license files
-# for the code accessed (or partly included) from contributed R-ports
-# and other sources
-#   see Rmetrics's copyright file  
-
-
 ################################################################################
- 
-    
-.First.lib =  
+
+
+.First.lib =
 function(lib, pkg)
-{   
-    # Startup Mesage and Desription:
-    MSG <- if(getRversion() >= "2.5") packageStartupMessage else message
-    dsc <- packageDescription(pkg)
-    if(interactive() || getOption("verbose")) { 
-        # not in test scripts
-        MSG(sprintf("\nPackage %s (%s) loaded.\n%s\n",
-            pkg, dsc$Version, dsc$Title),
-            "Rmetrics, (C) 1999-2007, Diethelm Wuertz, GPL\n")
-    }
+{
+###     # Startup Mesage and Desription:
+###     MSG <- if(getRversion() >= "2.5") packageStartupMessage else message
+###     dsc <- packageDescription(pkg)
+###     if(interactive() || getOption("verbose")) {
+###         # not in test scripts
+###         MSG(sprintf("Rmetrics Package %s (%s) loaded.", pkg, dsc$Version))
+###     }
 
     # Load dll:
-    # library.dynam("fPortfolio", pkg, lib) 
+    # library.dynam("fPortfolio", pkg, lib)
     # use "Rdonlp2"
+}
+
+.onLoad <-
+    function(libname, pkgname)
+{
+
 }
 
 
 if(!exists("Sys.setenv", mode = "function")) # pre R-2.5.0, use "old form"
     Sys.setenv <- Sys.putenv
 
+
+################################################################################
+# some useful functions added
+
+.smallcapData = as.timeSeries(data(smallcap.ts))
+.smallcapData = .smallcapData[, c("BKE", "GG", "GYMB", "KRON")]
+
+.lppData = 100* as.timeSeries(data(LPP2005REC))[, 1:6]
+
+.mvSpec = portfolioSpec()
+setType(.mvSpec) = "MV"
+setTargetReturn(.mvSpec) = mean(.lppData)
+setSolver(.mvSpec) = "solveRfoo"
+
+.cvarSpec = portfolioSpec()
+setType(.cvarSpec) = "CVaR"
+setTargetReturn(.cvarSpec) = mean(.lppData)
+setSolver(.cvarSpec) = "solveRfoo"
+
+.madSpec = portfolioSpec()
+setType(.madSpec) = "MAD"
+setTargetReturn(.madSpec) = mean(.lppData)
+setSolver(.madSpec) = "solveRfoo"
+
+.Box = c("minW[3:4]=0.1", "maxW[5:6]=0.8")
+.Group = c("minsumW[1:3]=0.2", "maxsumW[c(2,4)]=0.8")
+.BoxGroup = c(.Box, .Group)
+.CovBudget = c("minB[3:4]=0.1", "maxB[5:6]=0.9")
 
 
 ################################################################################

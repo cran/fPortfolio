@@ -1,9 +1,21 @@
-\name{PortfolioConstraints}
+\name{portfolioConstraints}
 
-
-\alias{PortfolioConstraints}
 
 \alias{portfolioConstraints}
+
+\alias{minWConstraints}
+\alias{maxWConstraints}
+
+\alias{eqsumWConstraints}
+\alias{minsumWConstraints}
+\alias{maxsumWConstraints}
+
+\alias{minBConstraints}
+\alias{maxBConstraints}
+
+\alias{listFConstraints}
+\alias{minFConstraints}
+\alias{maxFConstraints}
 
 
 \title{Portfolio Constraints}
@@ -11,60 +23,47 @@
 
 \description{
   
-    A collection and description of functions, which 
-    allow to set, manipulate and/or view portfolio 
-    constraints. Type of constraints include box/group 
-    constraints of weights, and covariance risk-budget 
-    constraints.
-    \cr
-    
-    The functions are:
-    
-    \tabular{ll}{
-    \code{portfolioConstraints} \tab Checks portfolio constraints for consistency. }
+    Computes portfolio constraints given constraints strings.
     
 }    
 
 \usage{
-portfolioConstraints(data, spec = portfolioSpec(), constraints = NULL)
+portfolioConstraints(data, spec = portfolioSpec(), constraints = "LongOnly", \dots)
+
+minWConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+maxWConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+
+eqsumWConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+minsumWConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+maxsumWConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+
+minBConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+maxBConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+
+listFConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+minFConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
+maxFConstraints(data, spec = portfolioSpec(), constraints = "LongOnly")
 }
 
 
 \arguments{
 
     \item{constraints}{
-        [setConstraints] - \cr
         a character value or character vector, containing the constraint
         strings. Setting constraints is described in the details section 
         }
     \item{data}{
-        [setConstraints] - \cr
         a list, having a statistics named list, having named entries 'mu' and
         'Sigma', containing the information of the statistics\cr
         }
-    %\item{object}{
-    %    [getConstraints] - \cr
-    %    an object of class constraintsMatrix, containing the constraints matrix
-    %    and the exposure vector.
-    %    }
     \item{spec}{
-        [setConstraints] - \cr
-        an object of class \code{fPFOLIOSPEC}, containing slots call, model,
-        portfolio, title, description.
+        an S4 object of class \code{fPFOLIOSPEC} as returned by the function
+        \code{portfolioSpec}.
         }
-    %\item{type}{
-    %    [setConstraints] - \cr
-    %    a character string denoting the type of constraints to set.
-    %    }
-    %\item{x}{
-    %    [print] - \cr
-    %    an pbject of class \code{constraintsMatrix} as returned by the 
-    %    function \code{getConstraints}.
-    %    }
-    %\item{\dots}{
-    %    [print] - \cr
-    %    optional arguments passed to the \code{print} function.
-    %    }
+    \item{\dots}{
+        arguments passed to the function \code{.setRdonlp2Constraints}.
+        For internal use only.
+        }
 
 }
 
@@ -77,7 +76,7 @@ portfolioConstraints(data, spec = portfolioSpec(), constraints = NULL)
     strings.
     
     
-    \emph{Special Constraint Settings:}
+    \emph{Summary Constraints: NULL, "LongOnly", "Short"}
     
     There are three special cases, the settings \code{constraints=NULL},
     \code{constraints="Short"}, and \code{constraints="LongOnly"}. Note,
@@ -98,9 +97,11 @@ portfolioConstraints(data, spec = portfolioSpec(), constraints = NULL)
     portfolio optimization.
     
     
-    \emph{Tailored Weight Constrained Portfolios:}
+    \emph{Lower and Upper Bounds: minW and maxW}
     
-    Weight constrained portfolios may be specified by a vector of
+    \emph{Group Constraints: eqsumW, minsumW and maxsumW}
+    
+    Lower and upper bounded portfolios may be specified by a vector of
     character strings which describe executable code, setting values to
     to vectors \code{minW}, \code{maxW}, \code{minsumW}, and \code{maxsumW}.
     The individual string elements of the vector have the following form:
@@ -123,7 +124,8 @@ portfolioConstraints(data, spec = portfolioSpec(), constraints = NULL)
     the values are set to negative values, and values larger than one, 
     then (constrained) short selling will be allowed. 
     
-    \emph{Tailored Risk Budget Constrained Portfolios:}
+    
+    \emph{Risk Budget Constrained Portfolios:}
     
     By default, risk budgets are not included in the portfolio optimization.
     Covariance risk budgets have to be added explicitely, and have the 
@@ -139,51 +141,29 @@ portfolioConstraints(data, spec = portfolioSpec(), constraints = NULL)
     Again, \code{Asset(s)} is an index of one or more assets, and \code{value} 
     a numeric value or vector with numbers ranging between zero and one,
     assigning the desired risk budgets. 
+    
+    Note, risk budget constraints will enforce diversification at the 
+    expense of return generation. The resulting portfolios will thus lie 
+    below the unconstrained efficient frontier.
+    
+    \emph{Non-Linear Constraints: listF, minF, maxF}
 
 }
 
 
-%\value{
-%
-%}
+\value{
+    
+    an object of class S4.
 
-
-%\details{
-%
-%}
+}
 
 
 %\references{}
 
 
-\seealso{
-
-   \code{\link{PortfolioData}},
-   \code{\link{PortfolioSpec}},
-   \code{\link{fPORTFOLIO}},
-   \code{\link{PortfolioPlots}}.
-
-}
-
-
-\author{
-
-    Diethelm Wuertz and Oliver Greshake for the Rmetrics port.
-    
-}
-
-
 \examples{
 ## portfolioConstraints -
-   # Load Data, i.e. a List of Returns:
-   Data = as.timeSeries(data(smallcap.ts))
-   Data = Data[, c("BKE", "GG", "GYMB", "KRON")]
-   Data
-   # Specification:
-   Spec = portfolioSpec() 
-   # Portfolio Constraints:
-   Constraints = "minW[1:4]"
-   portfolioConstraints(Data, Spec, Constraints)
+   # 
 }
 
 

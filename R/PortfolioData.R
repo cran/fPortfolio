@@ -16,186 +16,67 @@
 
 # Copyrights (C)
 # for this R-port: 
-#   1999 - 2007, Rmetrics Foundation, GPL
-#   Contact: Diethelm Wuertz <wuertz@phys.ethz.ch>
-#   info@rmetrics.org
-#   www.rmetrics.org
-# for the code accessed (or partly included) from other R-ports:
-#   see R's copyright and license files
-# for the code accessed (or partly included) from contributed R-ports
-# and other sources
-#   see Rmetrics's copyright file
+#   1999 - Diethelm Wuertz, GPL
+#   2007 - Rmetrics Foundation, GPL
+#   Diethelm Wuertz <wuertz@itp.phys.ethz.ch>
+# for code accessed (or partly included) from other sources:
+#   see Rmetric's copyright and license files
 
 
 ################################################################################
-# FUNCTION:                     PORTFOLIO DATA CLASS:
-#  'fPFOLIODATA'                 S4 Portfolio Data Class
+# FUNCTION:                     DESCRIPTION:
 #  portfolioData                 Creates portfolio data list
-#  show.fPFOLIODATA              Print method for 'fPFOLIODATA' objects
-# FUNCTION:                     PORTFOLIO STATISTICS:
-#  portfolioStatistics           Estimates mu and Sigma statistics
 ################################################################################
 
 
-setClass("fPFOLIODATA", 
-    representation(
-        data = "list",
-        statistics = "list",
-        tailRisk = "list")  
-)
-
-
-# ------------------------------------------------------------------------------
-
-
-portfolioData =
-function(data, spec = portfolioSpec())
-{   # A function implemented by Rmetrics
+portfolioData <- 
+    function(data, spec = portfolioSpec())
+{   
+    # A function implemented by Rmetrics
 
     # Description:
     #   Creates portfolio data list
     
     # Arguments:
-    #   data - a multivariate timeSeries object
+    #   data - a multivariate 'timeSeries' object
     #   spec -  a portfolio specification structure, from which
     #       the mean and covariance type of estimator will be extracted
     
     # FUNCTION:
     
     # Check and Sort Data: 
+    if (class(data) == "fPFOLIODATA") return(data)  
     stopifnot(class(data) == "timeSeries") 
+    
+    # Data:
     data = sort(data)
-    nAssets = dim(data)[2]
+    nAssets = NCOL(data)
+    names = colnames(data)
+    if(is.null(names)) names = paste("A", 1:nAssets, sep = "")
+    .data = list(
+        series = data,
+        nAssets = nAssets,
+        names = names)
         
     # Statistics:
-    statistics = portfolioStatistics(data, spec)
-    
-    # Explore Tail Dependency:
-    tailRisk = spec@model$tailRisk
-     
+    estimator = getEstimator(spec)
+    estimatorFun = match.fun(estimator)
+    muSigma = estimatorFun(data, spec)
+    .statistics = list(
+        mean = colMeans(data), 
+        Cov = cov(data),
+        estimator = estimator,
+        mu = muSigma$mu, 
+        Sigma = muSigma$Sigma)
+  
+    # Tail Risk:
+    .tailRisk = spec@model$tailRisk
+        
     # Return Value:
     new("fPFOLIODATA", 
-        data = list(series = data, nAssets = nAssets),
-        statistics = statistics,
-        tailRisk = tailRisk)  
-}
-
-
-# ------------------------------------------------------------------------------
-
-
-show.fPFOLIODATA =
-function(object)
-{   # A function implemented by Rmetrics
-
-    # Description:
-    #   S4 Print Method for an object of class "fPFOLIODATA"
-    
-    # Arguments:
-    #   object - an object of class "fPFOLIOSPEC"
-    
-    # FUNCTION:
-    
-    # Series:
-    cat("\nSeries Data:\n\n")
-    print(object@data$series)
-    
-    # Statistics:
-    cat("\nStatistics:\n\n")
-    print(object@statistics)
-    
-    # Tailrisk:
-    # NYI
-        
-    # Return Value: 
-    invisible(object)
-}
-
-
-# ------------------------------------------------------------------------------
-
-
-setMethod("show", "fPFOLIODATA", show.fPFOLIODATA)
-
-
-# ------------------------------------------------------------------------------
-
-
-portfolioStatistics = 
-function(data, spec = portfolioSpec())
-{   # A function implemented by Rmetrics
-
-    # Description:
-    #   Estimates mu and Sigma Statistics
-    
-    # Arguments:
-    #   data - a multivariate timeSeries object
-    #   spec - a portfolio specification structure, from which
-    #       the mean and covariance type of estimator will be extracted
-    
-    # FUNCTION:
-    
-    # Check Data - Should be a multivariate time series: 
-    stopifnot(!is.list(data))
-    
-    # Convert data to matrix object:
-    series = as.matrix(data)
-    
-    # Select Estimator:
-    meanEstimator = spec@model$estimator[1]
-    covEstimator = spec@model$estimator[2]
-    
-    # LPM:
-    if(meanEstimator == "lpm" | covEstimator == "lpm") {
-        stopifnot(!is.null(spec@model$params$tau))
-        stopifnot(!is.null(spec@model$params$a))
-        estimate = assetsLPM(x = data, 
-            tau = spec@model$params$tau, a = spec@model$params$a)
-        mu = estimate$mu
-        Sigma = estimate$Sigma
-    }
-        
-    # Robust Estimates:
-    if (meanEstimator == "mcd" | covEstimator == "mcd") {
-        # require(MASS)
-        estimate = MASS::cov.mcd(series)
-        mu = estimate$center
-        Sigma = estimate$cov
-    } else if (meanEstimator == "mve" | covEstimator == "mve") {
-        # require(MASS)
-        estimate = MASS::cov.mve(series)
-        mu = estimate$center
-        Sigma = estimate$cov
-    } else if (meanEstimator == "Mcd" | covEstimator == "Mcd") {
-        # require(robustbase)
-        # estimate = robustbase::covMcd(series)
-        # Note imports not declared from robustbase
-        estimate = covMcd(series)
-        mu = estimate$center
-        Sigma = estimate$cov
-    } else if(meanEstimator == "shrink" | covEstimator == "shrink") {
-        estimate = assetsMeanCov(series, method = "shrink")
-        mu = estimate$mu
-        Sigma = estimate$Sigma
-    } 
-    
-    # Classical Estimates:
-    if (meanEstimator == "mean") {
-        mu = apply(series, MARGIN = 2, FUN = mean)
-    }
-    if (meanEstimator == "median") {
-        mu = apply(series, MARGIN = 2, FUN = median)
-    }
-    if (covEstimator == "cov") {
-        Sigma = cov(series)
-    }
-    
-    # Statistics:
-    statistics = list(mu = mu, Sigma = Sigma)
-    attr(statistics, "estimator") = spec@model$estimator
-    
-    # Return Value:
-    statistics
+        data = .data,
+        statistics = .statistics,
+        tailRisk = .tailRisk)  
 }
 
 
