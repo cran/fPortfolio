@@ -141,7 +141,6 @@ Elton E.J., Gruber M.J. (1991);
 
 
 \examples{
-## SOURCE("fBasics.A0-SPlusCompatibility")
 ## SOURCE("fPortfolio.B3-TwoAssetsPortfolio")
 
 \dontrun{

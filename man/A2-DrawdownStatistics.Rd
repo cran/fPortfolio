@@ -124,8 +124,7 @@ Magdon-Ismail M., Atiya A.F., Pratap A., Abu-Mostafa Y.S. (2003);
 
 
 \examples{
-## SOURCE("fBasics.A0-SPlusCompatibility")
-## SOURCE("fPortfolio.A3-DrawdownStatistics")
+## SOURCE("fPortfolio.A2-DrawdownStatistics")
 
 ## rmaxdd -
    xmpPortfolio("\nStart: Simulate maximum Drawdowns > ")

@@ -54,6 +54,7 @@ setClass("fPFOLIO2",
 
 # ------------------------------------------------------------------------------
 
+
 frontierTwoAssetsMarkowitz =
 function(x, length = 100, title = NULL, description = NULL) 
 {	# A Function Implemented by Diethelm Wuertz

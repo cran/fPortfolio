@@ -32,7 +32,7 @@
 #  assetsSim             Simulates a set of artificial assets
 #  assetsSelect          Clusters a set of assets
 #   method = hclust       hierarchical clustering
-#   method = kmeans       k-menas clustering
+#   method = kmeans       k-means clustering
 #  fASSETS               Class representation for "fASSETS" Objects
 #  assetsFit             Estimates the parameters of set of assets
 #   method = norm         assuming a multivariate Normal distribution
@@ -100,11 +100,12 @@ alpha = rep(0, dim), df = Inf), assetNames = NULL)
     
     # Select:
     if (model$df == Inf) {      
-        ans = t(model$mu + Z$omega * z) }
-    else {
+        ans = t(model$mu + Z$omega * z) 
+    } else {
         x = rchisq(n, model$df)/model$df
         z = t(model$mu + Z$omega * z)
-        ans = t(model$mu + t(sqrt(x) * z)) }
+        ans = t(model$mu + t(sqrt(x) * z)) 
+    }
         
     # Dimnames:
     dimnames(ans)[[2]] = assetNames 
@@ -362,7 +363,7 @@ function(object, which = "all", ...)
 }
 
 
-# ------------------------------------------------------------------------------
+# ******************************************************************************
 
     
 assetsStats =
@@ -474,5 +475,5 @@ function(x)
 }   
 
 
-# ******************************************************************************
+################################################################################
 

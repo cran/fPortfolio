@@ -200,7 +200,6 @@ Uryasev S. (2000);
 
 
 \examples{
-## SOURCE("fBasics.A0-SPlusCompatibility")
 ## SOURCE("fPortfolio.B1-VaRModelling")
 
 ## assetsSim -

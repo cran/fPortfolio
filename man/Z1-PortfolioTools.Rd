@@ -64,7 +64,6 @@ xmpPortfolio(prompt = "")
 
 
 \examples{
-## SOURCE("fBasics.A0-SPlusCompatibility")
 ## SOURCE("fPortfolio.Z1-PortfolioTools")
 
 \dontrun{

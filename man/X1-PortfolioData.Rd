@@ -76,10 +76,9 @@
 
 
 \examples{
-## SOURCE("fBasics.A0-SPlusCompatibility")
 ## SOURCE("fPortfolio.X1-PortfolioData")
 
-## vanIndices -
+## -
 }
 
 

@@ -4,10 +4,13 @@
 #	Portfolio Assets Modelling
 #
 # Description:
-#   This example shows how to the four most dissimilar assets from 
+#   This example shows how to select the four most dissimilar assets from 
 #   Berndt's data set and how to fit the distributional paramaters
 #   for these assets. Finally we show how to simulate an artificial
 #	set of assets with distributions from fitted parameters.
+#
+# Content:
+#	PART I - Select the 4 most dissimilar assets from Berndt's data set
 #
 # Author:
 #	(C) 2003, Diethelm Wuertz, GPL
@@ -18,12 +21,15 @@
 # Requirements:
 
 	require(fBasics)
+	require(fCalendar)
 	require(fSeries)
+	require(fMultivar)
+	require(fExtremes)
 	require(fPortfolio)
 
 
 ################################################################################
-# Select the 4 most dissimilar assets from Berndt's data set:
+# PART I - Select the 4 most dissimilar assets from Berndt's data set:
 
 
 	# The data set "berndtInvest" is from Berndt's textbook 
@@ -83,7 +89,7 @@
 
 
 ################################################################################
-# Fit the parameters for Berndt's data set:
+# PART II - Fit the parameters for Berndt's data set:
 
 
 	# How do we classify a Portfolio ?
@@ -150,14 +156,14 @@
 	
 	
 	# Use methods:
-	print(fit.msn)
-	plot(fit.msn)
-	summary(fit.msn)
+	# print(fit.st)
+	# plot(fit.st)
+	# summary(fit.st)
 	###
 	
 
 ################################################################################
-# Simulate an artificial portfolio:
+# PART III - Simulate an artificial portfolio:
 
 
 	# Two ways for Simulation:
@@ -171,20 +177,19 @@
 
 	
 	# Method 1:
-	assetsSim(
-		n = length(myAssets[,1]), 
+	simulatedAssets = assetsSim(
+		n = length(myAssets@Data[,1]), 
 		model = fit.st@model)
+	simulatedAssets
 	###
-		
-		
 	# Method 2:
-	fit.msn@model
-	alpha = fit.msn@model$alpha
-	Omega = fit.msn@model$Omega
-	beta = fit.msn@model$beta
-	simulatedAssets = assetsSim(n = 120, 
-		model = list(beta = beta, Omega = Omega, alpha = alpha, df = Inf))
-	# Plot Cumulated Returns of the Assets:
+	# fit.st@model
+	# alpha = fit.st@model$alpha
+	# Omega = fit.st@model$Omega
+	# beta = fit.st@model$beta
+	# simulatedAssets = assetsSim(n = 120, 
+	#	model = list(beta = beta, Omega = Omega, alpha = alpha, df = Inf))
+	# # Plot Cumulated Returns of the Assets:
 	ts.plot(colCumsums(simulatedAssets), col = 1:4)
 	legend(0, 300, legend = colnames(simulatedAssets), col = 1:4, lty = 1)
 	title(main = "Cumulated Returns", ylab = "Cumulated Returns")

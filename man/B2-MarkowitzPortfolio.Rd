@@ -239,7 +239,6 @@ Huang C.J., Litzenberger R.H. (1988);
 
 
 \examples{
-## SOURCE("fBasics.A0-SPlusCompatibility")
 ## SOURCE("fPortfolio.B2-MarkowitzPortfolio")
 
 \dontrun{

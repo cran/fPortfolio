@@ -15,6 +15,8 @@
 
 ################################################################################
 # Generate random variates:
+
+	require(fMultivar)
 	
 	# Normal random deviates
 	r1 = rmvsnorm(100, dim = 1)

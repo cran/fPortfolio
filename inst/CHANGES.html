@@ -12,7 +12,7 @@
 
 <P>
 <B><FONT FACE="Arial,Helvetica,Monaco"><FONT SIZE="2">
-    2005-05-16 Built 201.10060</FONT></FONT>
+    2005-11-02 Built 220.10063</FONT></FONT>
 </B></P>
 
 
@@ -24,9 +24,91 @@ to the packages included in the Rmetrics environment. The packages are:
 fBasics, fCalendar, fSeries, fMultivar, fExtremes, fOptions, fPortfolio
 
 
-________________________________________________________________________________
-Rmetrics VERSION 201.10060
+________________________________________________________________________________ 
+Rmetrics VERSION 220.10063
+Rmetrics VERSION 211.10062
 
+2005-11-02
+	This is a preliminary version with smaller modifications, updates, and
+	additions compared to Rmetrics 201.0061.
+	
+	Not yet updated is the documentation included in DocFactSheet.pdf
+	Doc, DocRefcard.pdf, and DocRmetrics.pdf. These documents have Version
+	211.10062. This update is under progress.
+	
+	The major effort was invested to make under both environments MS Windows  
+	and Linux Rmetrics running based on the new compiler suite with
+	gfortran. Please note, that I have done this move for Rmetrics already 
+	under MS Windows, although this is not yet done for R. The reason why
+	I have done this, is that I develop under MS Windows, and that I wan't
+	support two systems based on different compiler suites. The Mac Version
+	is not yet tested, but hopefully it will run.
+	
+________________________________________________________________________________
+Rmetrics VERSION 201.10061
+
+2005-07-25 fBasics: X1-BasicsData
+    A data set named 'usddem30u.csv' with high frequency USDDEM bid
+    and ask rates has been added.
+
+2005-07-25 fBasics: B4-DistributionFits
+    A function named 'stableFit' for the estimation of the distributional 
+    parameters of the stable distribution has been added.
+
+2005-07-25 fBasics: A1-WebDataImport
+    A function named 'forecastsImport' for the download of time series 
+    data from www.forecasts.org has been added.
+    
+2005-07-22 fBasics: B4-StableDistribution
+    A function named 'stableFit' for the estimation of the distributional 
+    parameters of the stable distribution has been added.
+
+2005-07-04 fMultivar: A1-BivariateTools
+    Density functions for the bivariate Logistic, Laplace, original
+    Kotz, and Exponential Power Distribution have bee added.
+
+2005-06-19 fSeries: X3-TsayData
+    The data sets from Ruey Tsay's book "Analysis of Financial Time
+    Series" have been added.
+
+2005-06-18 fMultivar: A0-BivariateTools
+    Bivariate normal and Student-t Distribution are now available
+    in this chapter. They are named "[dpr]norm2d" and "[dpr]t2d".
+    
+2005-06-18 fMultivar: A2-MultivariateDistribution
+    This chapter has been moved from "fPortfolio" to "fMultivar".
+
+2005-06-10 fBasics: A0-BasicPlots
+    A grey palette named 'greyPal' has been added, like the 'rainbow' 
+    palette for colors. Additionally internal functions .hex.to.dec 
+    and .dec.to.hex are availalble changing number coding between 
+    heximal and decimal number systems.
+
+2005-06-10 fMultivar: A0-BivariateTools
+    A new chapter has been added with three new functions for bivariate
+    data modelling. The functions include a 2D grid generator, a kernel 
+    density estimator and a histogram counter.
+
+2005-06-06 fSeries: xmpJarqueBeraTest
+    Examples for the finite sample Jarque Bera Lagrange and
+    augmented Lagrange multiplier tests have been added.
+
+2005-06-06 fSeries: C2-UnitrootDistribution
+    Functions for the computation of the probability and quantiles
+    for the Augmented Dickey Fuller test have been added.
+
+2005-06-06 fBasics: C2-OneSampleTests
+    Functions for the finite sample Jarque Bera Lagrange and
+    augmented Lagrange multiplier tests have been added.
+
+2005-06-06 fBasics: C1-TestsClass
+    Utility functions for plotting and interpolating finite sample
+    test statistics from tables have been added. 
+    
+    + many other smaller improvements and fixings ...
+    
+________________________________________________________________________________   
+Rmetrics VERSION 201.10060   
 
 2005-05-12 fSeries: xmpGarchpqModelling
     An example file has been added which shows step by step how to
@@ -50,8 +132,8 @@ Rmetrics VERSION 201.10060
     the function "sd".    
     
 2005-05-02 fMultivar: B1-MatrixAddon:
-    A function named "pdl" has been added which returns a regressor matrix 
-    suitable for polynomial distributed lags. 
+    A function named "pdl" has been added which returns a regressor  
+    matrix suitable for polynomial distributed lags. 
     
 2005-05-02 fMultivar: B1-MatrixAddon:
     A function named "tslag" has beeen added which returns a lagged/led 

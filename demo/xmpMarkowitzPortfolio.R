@@ -38,7 +38,9 @@
 
 
 ################################################################################
-# Simulate set of assets:
+# PART I - Simulate set of assets:
+    
+    require(fExtremes)
     
     # Composed Model:
     #   n - Number of data records to be simulated
@@ -79,14 +81,13 @@
     # Calculate Efficient Frontier:
     par(mfrow = c(2, 2), cex = 0.5)
     myPF = frontierMarkowitz(x = myAssets)       
-    # Add Tangency Portfolio:
-    myPF = tangencyMarkowitz(myPF) 
-    # Add Equal Weights Portfolio:
-    myPF = equalweightsMarkowitz(myPF)
     # Add Monte Carlo Points:
     myPF = montecarloMarkowitz(myPF)
     # Summary:
-    summary(myPF)
+    # summary(myPF)
+    print(myPF)
+    par(mfrow=c(2,2))
+	plot(myPF, which = c(F,T,T,T,T))
     ###
 
 
@@ -95,6 +96,7 @@
 
 
 	require(fBasics)
+	require(fExtremes)
 
 	# The data set "berndtInvest" is from Berndt's textbook 
 	# "The Practice of Econometrics". It is a data.frame consisting
@@ -123,15 +125,13 @@
 	# Optimize Markowitz Portfolio: 
     # Calculate Efficient Frontier:
     par(mfrow = c(2, 2), cex = 0.5)
-    myPF = frontierMarkowitz(x = berndtAssets)       
-    # Add Tangency Portfolio:
-    myPF = tangencyMarkowitz(myPF) 
-    # Add Equal Weights Portfolio:
-    myPF = equalweightsMarkowitz(myPF)
+    myPF = frontierMarkowitz(x = berndtAssets)        
     # Add Monte Carlo Points:
     myPF = montecarloMarkowitz(myPF)
     # Summary:
-    summary(myPF)
+    print(myPF)
+    par(mfrow=c(2,2))
+	plot(myPF, which = c(F,T,T,T,T))
     ###
 	
 	

@@ -30,6 +30,7 @@
 ################################################################################
 # FUNCTION:					DESCRIPTION:
 #  maxddStats   		     Expectation of Drawdowns for BM with drift
+#  .maxddStats               Utility function called by "maxddStats"
 # FUNCTION:                 DISTRIBUTION AND RANDOM VARIATES:
 #  dmaxdd					 Density function of mean Max-Drawdowns
 #  pmaxdd                    Probability function of mean Max-Drawdowns
@@ -46,20 +47,20 @@ function(mean = 0, sd = 1, horizon = 1000)
 	#	Brownian Motion for a given drift "mu", variance "sigma",  
 	#	and runtime "horizon" of the Brownian Motion process.
 	
-	# Details:
-	#	Interpolates the data given in the table of Appendix B
-	# 	in Magdon-Ismail et al. [2003], "On the Maximum Drawdown 
-	#	of Brownian Motion". The interpolation is done with R's
-	#	function spline().
-	
 	# Arguments:
 	#	mu - Drift of Brownian Motion, a numeric vector.
 	# 	sigma - Standard Deviation of Brownian Motion, a numeric value.
 	#	horizon - Runtime of the process, the time horizon of the 
 	# 	  investor, a numeric value.
 	
+	# Details:
+	#	Interpolates the data given in the table of Appendix B
+	# 	in Magdon-Ismail et al. [2003], "On the Maximum Drawdown 
+	#	of Brownian Motion". The interpolation is done with R's
+	#	function spline().
+	
 	# Notes.
-	#   This computes for one horizon value.
+	#   This computes for a vector of horizon values.
 	
 	# FUNCTION:
 	
@@ -76,10 +77,17 @@ function(mean = 0, sd = 1, horizon = 1000)
 
 # ------------------------------------------------------------------------------
 
+
 .maxddStats = 
 function(mu = 0, sigma = 1, horizon = 1000)
 {	# A function implemented by Diethelm Wuertz
 
+	# Description:
+	#	Utility function called by "maxddStats"
+	
+	# Arguments:
+	#	see function "maxddStats
+	
 	# FUNCTION:
 	
 	# Internal Function - POSITIVE CASE: mu > 0
@@ -104,10 +112,12 @@ function(mu = 0, sigma = 1, horizon = 1000)
 		if (x < 0.0005) { y = gamma*sqrt(2*x) }
 		if (x >= 0.0005 & x <= 5000) {
 			y = spline(log(vqn[,1]), vqn[,2], n = 1, xmin = log(x), 
-				xmax = log(x))$y }
+				xmax = log(x))$y 
+		}
 		if (x > 5000) { y = 0.25*log(x) + 0.49088}
 		# Return Value:
-		y }
+		y 
+	}
 	
 	# Internal Function - NEGATIVE CASE: mu < 0
 	# Right Table from Appendix B:
@@ -133,18 +143,21 @@ function(mu = 0, sigma = 1, horizon = 1000)
 			y = spline(vqn[,1], vqn[,2], n = 1, xmin = x, xmax = x)$y }
 		if (x > 5) { y = x + 1/2 }	
 		# Return Value:
-		y }
+		y 
+	}
 	
 	# Result:
 	ED = NULL
 	for (i in 1:length(mu)) {
-	if (mu[i] == 0) {
-		gamma = sqrt(pi/8) 	
-		ED[i] = 2 * gamma * sigma * sqrt(horizon) }
-	else {
-		x = mu[i]^2 * horizon / ( 2 * sigma^2 )
-		if (mu[i] > 0) { ED[i] = ( 2* sigma^2 / mu[i] ) * QP(x) }
-		if (mu[i] < 0) { ED[i] = - ( 2* sigma^2 / mu[i] ) * QN(x) } } }
+		if (mu[i] == 0) {
+			gamma = sqrt(pi/8) 	
+			ED[i] = 2 * gamma * sigma * sqrt(horizon) 
+		} else {
+			x = mu[i]^2 * horizon / ( 2 * sigma^2 )
+			if (mu[i] > 0) { ED[i] = ( 2* sigma^2 / mu[i] ) * QP(x) }
+			if (mu[i] < 0) { ED[i] = - ( 2* sigma^2 / mu[i] ) * QN(x) } 
+		} 
+	}
 	
 	# Return Value:
 	ED
@@ -269,7 +282,8 @@ function(n, mean = 0, sd = 1, horizon = 100)
 	result = NULL
 	for (i in 1:n) {
 		D = cumsum(rnorm(horizon, mean = mean, sd = sd))
-		result[i] = max(cummax(D)-D) }
+		result[i] = max(cummax(D)-D) 
+	}
 	
 	# Return Value:
 	result
