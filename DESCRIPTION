@@ -1,5 +1,5 @@
 Package: fPortfolio
-Version: 280.73
+Version: 280.74
 Date: 1997 - 2008
 Title: Rmetrics - Portfolio Selection and Optimization
 Author: Diethelm Wuertz
@@ -14,4 +14,4 @@ LazyLoad: yes
 LazyData: yes
 License: GPL (>= 2)
 URL: http://www.rmetrics.org
-Packaged: Thu Oct 23 10:16:24 2008; yankee
+Packaged: Mon Oct 27 15:25:19 2008; yankee
