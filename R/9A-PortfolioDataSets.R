@@ -1,13 +1,4 @@
 
-#*******************************************************************************
-# fPortfolio - A SOFTWARE COLLECTION FOR FINANCIAL ENGINEERS
-# Portfolio Selection and Optimization
-#
-# collected by Diethelm Wuertz
-# Version 0.9
-#*******************************************************************************
-
-
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library General Public
 # License as published by the Free Software Foundation; either
@@ -21,11 +12,11 @@
 # You should have received a copy of the GNU Library General 
 # Public License along with this library; if not, write to the 
 # Free Foundation, Inc., 59 Temple Place, Suite 330, Boston, 
-# MA  02111-1307  USA
+# MA 02111-1307 USA
 
 # Copyrights (C)
 # for this R-port: 
-#   1997 - 2007, Diethelm Wuertz, GPL
+#   1999 - 2007, Diethelm Wuertz, GPL
 #   Diethelm Wuertz <wuertz@itp.phys.ethz.ch>
 #   info@rmetrics.org
 #   www.rmetrics.org
@@ -33,23 +24,7 @@
 #   see R's copyright and license files
 # for the code accessed (or partly included) from contributed R-ports
 # and other sources
-#   see Rmetrics's copyright file  
-
-
-################################################################################
- 
-    
-.First.lib =  
-function(lib, pkg)
-{   # A function implemented by Diethelm Wuertz
-    
-    # Package:
-    cat("\nRmetrics, (C) 1997-2007, Diethelm Wuertz, GPL")
-    cat("\nfPortfolio: Portfolio Selection and Optimization\n")
-    
-    # Load dll:
-    # library.dynam("fPortfolio", pkg, lib)
-}
+#   see Rmetrics's copyright file
 
 
 ################################################################################
