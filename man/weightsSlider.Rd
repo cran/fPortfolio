@@ -32,7 +32,7 @@ weightsSlider(object, control = list(), \dots)
          an S4 object of class \code{fPORTFOLIO}.
         }
     \item{\dots}{
-        optional arguments to be passed.\cr
+        optional arguments to be passed.
         }
 
 }
@@ -210,18 +210,24 @@ weightsSlider(object, control = list(), \dots)
     }                 
 }
 
-%\references{}
+
+\references{
+
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
+    
+}
 
 
 \examples{
 ## Load Data and Convert to timeSeries Object:
-   data = as.timeSeries(data(smallcap.ts))
-   data = data[, c("BKE", "GG", "GYMB", "KRON")]
-   head(data)
+   Data = SMALLCAP.RET
+   Data = Data[, c("BKE", "GG", "GYMB", "KRON")]
     
 ## portfolioFrontier -
-   frontier = portfolioFrontier(data)
-   print(frontier)
+   frontier = portfolioFrontier(Data)
+   frontier
     
 ## weightsSlider -
    # Try Frontier Slider:

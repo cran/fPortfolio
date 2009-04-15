@@ -83,26 +83,30 @@ portfolioFrontier(data, spec = portfolioSpec(), constraints = "LongOnly",
 
 
 
-%\references{}
+\references{
+
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
+    
+}
 
 
 \examples{
-## portfolioFrontier -
-   
-   # Load Data and Convert to timeSeries Object:
-   Data = as.timeSeries(data(smallcap.ts))
+## data -
+   Data = SMALLCAP.RET
    Data = Data[, c("BKE", "GG", "GYMB", "KRON")]
    Data
    
-   # Set Default Specifications:
+## spec -
    Spec = portfolioSpec()
    Spec
-   setNFrontierPoints = 10
+   setNFrontierPoints(Spec) = 10
    
-   # Allow for unlimited Short Selling:
+## constraints -
    Constraints = "LongOnly"
    
-   # Compute 10 points efficient frontier:
+## portfolioFrontier -
    portfolioFrontier(Data, Spec, Constraints)  
 }
 

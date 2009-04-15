@@ -32,10 +32,10 @@
 setClass("fPORTFOLIO", 
     representation(
         call = "call",
-        data = "list",
-        spec = "list",
-        constraints = "character",
-        portfolio = "list",
+        data = "fPFOLIODATA",
+        spec = "fPFOLIOSPEC",
+        constraints = "fPFOLIOCON",
+        portfolio = "fPFOLIOVAL",
         title = "character",
         description = "character")  
 )

@@ -24,18 +24,20 @@
 
 
 ################################################################################
-# FUNCTION:                     DESCRIPTION:
-#  getData                       Extracts data slot
-#   getSeries                     Extracts assets series data 
-#   getNAssets                    Extracts number of assets from data
-#   getNames                      Extracts assets names from data
-#  getStatistics                 Extracts statistics slot
-#   getMean                       Extracs mean from statistics
-#   getCov                        Extracs covariance Sigma from statistics
-#   getMu                         Extracs mu from statistics
-#   getSigma                      Extracs Sigma from statistics
-#   getEstimator                  Extracts estimator from 
-#  getTailRisk                   Extracts tailRisk slot
+# FUNCTION:                DESCRIPTION:
+#  getData                  Extracts data slot
+#   getSeries                Extracts assets series data 
+#   getNAssets               Extracts number of assets from data
+#   getNames                 Extracts assets names from data
+# FUNCTION:                DESCRIPTION:
+#  getStatistics            Extracts statistics slot
+#   getMean                  Extracs mean from statistics
+#   getCov                   Extracs covariance Sigma from statistics
+#   getMu                    Extracs mu from statistics
+#   getSigma                 Extracs Sigma from statistics
+#   getEstimator             Extracts estimator from 
+# FUNCTION:                DESCRIPTION:
+#  getTailRisk               Extracts tailRisk slot
 ################################################################################
 
 
@@ -60,20 +62,20 @@
     
     
 getData.fPFOLIODATA <- function(object) object@data
-getSeries.fPFOLIODATA <- function(object) object@data$series   
-getNAssets.fPFOLIODATA <- function(object) object@data$nAssets
-getNames.fPFOLIODATA <- function(object) object@data$names 
+    getSeries.fPFOLIODATA <- function(object) object@data$series   
+    getNAssets.fPFOLIODATA <- function(object) object@data$nAssets
+    getNames.fPFOLIODATA <- function(object) object@data$names 
 
 
 # ------------------------------------------------------------------------------
 
 
 getStatistics.fPFOLIODATA <- function(object) object@statistics
-getMean.fPFOLIODATA <- function(object) object@statistics$mean
-getCov.fPFOLIODATA <- function(object) object@statistics$Cov
-getMu.fPFOLIODATA <- function(object) object@statistics$mu
-getSigma.fPFOLIODATA <- function(object) object@statistics$Sigma
-getEstimator.fPFOLIODATA <- function(object) object@statistics$estimator
+    getMean.fPFOLIODATA <- function(object) object@statistics$mean
+    getCov.fPFOLIODATA <- function(object) object@statistics$Cov
+    getEstimator.fPFOLIODATA <- function(object) object@statistics$estimator
+    getMu.fPFOLIODATA <- function(object) object@statistics$mu
+    getSigma.fPFOLIODATA <- function(object) object@statistics$Sigma
 
 
 # ------------------------------------------------------------------------------

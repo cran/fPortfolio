@@ -117,15 +117,21 @@
 }
 
 
-%\references{}
+\references{
+
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
+    
+}
 
 
 \examples{
-## portfolioSpec -
-   
+## spec -
    # Show Default Portfolio Specifications:
    Spec = portfolioSpec()
    
+## setRiskFreeRate -
    # Change Risk Free Rate
    setRiskFreeRate(Spec) = 3
    Spec

@@ -21,16 +21,16 @@
 
 \usage{   
 weightsPlot(object, labels = TRUE, col = NULL, title = TRUE, 
-    box = TRUE, legend = TRUE, ...)
+    mtext = TRUE, box = TRUE, legend = TRUE, ...)
     
 weightedReturnsPlot(object, labels = TRUE, col = NULL, title = TRUE, 
-    box = TRUE, legend = TRUE, ...)
+    mtext = TRUE, box = TRUE, legend = TRUE, ...)
     
 covRiskBudgetsPlot(object, labels = TRUE, col = NULL, title = TRUE, 
-    box = TRUE, legend = TRUE, ...)
+    mtext = TRUE, box = TRUE, legend = TRUE, ...)
     
 tailRiskBudgetsPlot(object, labels = TRUE, col = NULL, title = TRUE, 
-    box = TRUE, legend = TRUE, ...)
+    mtext = TRUE, box = TRUE, legend = TRUE, ...)
 }
 
 
@@ -55,6 +55,10 @@ tailRiskBudgetsPlot(object, labels = TRUE, col = NULL, title = TRUE,
         a logical flag. Should automatically a title and axis labels be
         added to the plot. 
         }
+    \item{mtext}{
+        a logical flag. Should automatically a margin text 
+        added to the right hand side plot?
+        }    
     \item{box}{
         a logical flag, determining whether a boxed frame should be plotted
         around the pie, by default the value is set to \code{TRUE}.
@@ -100,44 +104,25 @@ tailRiskBudgetsPlot(object, labels = TRUE, col = NULL, title = TRUE,
 }
 
 
-\note{
+\references{
 
-    With Rmetrics Version 2.7 the name of \code{attributesPlot} has been
-    changed to \code{weightedReturnsPlot} since it better describes what
-    the plot shows.
-    
-    The axes labeling has been changed in all plots, now the return on the
-    bottom side, and the risk on the upper side, before it was just vice
-    versa.
-    
-}
-
-
-%\references{}
-
-
-\seealso{
-
-    \code{\link{weightsLinePlot}}, 
-    \code{\link{weightsPie}}, 
-    \code{\link{weightsSlider}}.
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
     
 }
 
 
 \examples{
 ## data -
-   # Load Data:
-   Data = as.timeSeries(data(smallcap.ts))
+   Data = SMALLCAP.RET
    Data = Data[, c("BKE", "GG", "GYMB", "KRON")]
 
 ## portfolioFrontier -
-   # Compute Long Only Efficient Frontier
-   frontier = portfolioFrontier(Data)
+   Frontier = portfolioFrontier(Data)
    
-## weightsLinePlot -
-   # View Weights Plot:
-   # weightsPlot(frontier)
+## weightsPlot -
+   weightsPlot(Frontier)
 }
 
 

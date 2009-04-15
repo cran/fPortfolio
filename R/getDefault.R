@@ -6,16 +6,16 @@
 #
 # This library is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR Description. See the 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR Description. See the
 # GNU Library General Public License for more details.
 #
-# You should have received a copy of the GNU Library General 
-# Public License along with this library; if not, write to the 
-# Free Foundation, Inc., 59 Temple Place, Suite 330, Boston, 
+# You should have received a copy of the GNU Library General
+# Public License along with this library; if not, write to the
+# Free Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307 USA
 
 # Copyrights (C)
-# for this R-port: 
+# for this R-port:
 #   1999 - Diethelm Wuertz, GPL
 #   2007 - Rmetrics Foundation, GPL
 #   Diethelm Wuertz <wuertz@itp.phys.ethz.ch>
@@ -25,19 +25,24 @@
 
 ################################################################################
 # FUNCTION:
+#  getA
+#  getAlpha
 #  getConstraints
+#  getControl
 #  getCov
 #  getCovRiskBudgets
 #  getData
 #  getEstimator
 #  getMean
 #  getMu
-#  getNAssets 
+#  getNAssets
 #  getNames
 #  getNFrontierPoints
+#  getMessages
 #  getObjective
 #  getOptim
 #  getOptimize
+#  getOptions
 #  getPortfolio
 #  getParams
 #  getRiskFreeRates
@@ -47,10 +52,8 @@
 #  getSpec
 #  getStatistics
 #  getStatus
-#  getAlpha
 #  getTailRisk
 #  getTailRiskBudgets
-#  getAlpha
 #  getTargetReturn
 #  getTargetRisk
 #  getTrace
@@ -59,9 +62,33 @@
 ################################################################################
 
 
-getConstraints <- 
+getA <-
     function(object)
-{   
+{
+    # A function implemented by Diethelm Wuertz
+
+    UseMethod("getA")
+}
+
+
+# ------------------------------------------------------------------------------
+
+
+getAlpha <-
+    function(object)
+{
+    # A function implemented by Diethelm Wuertz
+
+    UseMethod("getAlpha")
+}
+
+
+# ------------------------------------------------------------------------------
+
+
+getConstraints <-
+    function(object)
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getConstraints")
@@ -71,9 +98,21 @@ getConstraints <-
 # ------------------------------------------------------------------------------
 
 
-getCov <- 
+getControl <-
     function(object)
-{   
+{
+    # A function implemented by Diethelm Wuertz
+
+    UseMethod("getControl")
+}
+
+
+# ------------------------------------------------------------------------------
+
+
+getCov <-
+    function(object)
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getCov")
@@ -85,7 +124,7 @@ getCov <-
 
 getData <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getData")
@@ -95,9 +134,9 @@ getData <-
 # ------------------------------------------------------------------------------
 
 
-getCovRiskBudgets <- 
-    function(object) 
-{   
+getCovRiskBudgets <-
+    function(object)
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getCovRiskBudgets")
@@ -109,7 +148,7 @@ getCovRiskBudgets <-
 
 getEstimator <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getEstimator")
@@ -121,7 +160,7 @@ getEstimator <-
 
 getMean <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getMean")
@@ -130,10 +169,9 @@ getMean <-
 
 # ------------------------------------------------------------------------------
 
-
 getMu <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getMu")
@@ -141,11 +179,11 @@ getMu <-
 
 
 # ------------------------------------------------------------------------------
-    
-    
+
+
 getNAssets <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getNAssets")
@@ -153,11 +191,11 @@ getNAssets <-
 
 
 # ------------------------------------------------------------------------------
-    
-    
+
+
 getNames <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getNames")
@@ -169,7 +207,7 @@ getNames <-
 
 getNFrontierPoints <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getNFrontierPoints")
@@ -179,20 +217,33 @@ getNFrontierPoints <-
 # ------------------------------------------------------------------------------
 
 
+getMessages <-
+    function(object)
+{
+    # A function implemented by Diethelm Wuertz
+
+    UseMethod("getMessages")
+}
+
+
+# ------------------------------------------------------------------------------
+
+
 getObjective <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getObjective")
 }
+
 
 # ------------------------------------------------------------------------------
 
 
 getOptim <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getOptim")
@@ -204,7 +255,7 @@ getOptim <-
 
 getOptimize <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getOptimize")
@@ -214,9 +265,21 @@ getOptimize <-
 # ------------------------------------------------------------------------------
 
 
+getOptions <-
+    function(object)
+{
+    # A function implemented by Diethelm Wuertz
+
+    UseMethod("getOptions")
+}
+
+
+# ------------------------------------------------------------------------------
+
+
 getPortfolio <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getPortfolio")
@@ -228,7 +291,7 @@ getPortfolio <-
 
 getParams <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getParams")
@@ -240,7 +303,7 @@ getParams <-
 
 getRiskFreeRate <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getRiskFreeRate")
@@ -248,14 +311,14 @@ getRiskFreeRate <-
 
 
 # ------------------------------------------------------------------------------
-    
-    
+
+
 getSeries <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
-    UseMethod("getSeries") 
+    UseMethod("getSeries")
 }
 
 
@@ -264,7 +327,7 @@ getSeries <-
 
 getSigma <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getSigma")
@@ -276,7 +339,7 @@ getSigma <-
 
 getSolver <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getSolver")
@@ -288,7 +351,7 @@ getSolver <-
 
 getSpec <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getSpec")
@@ -300,7 +363,7 @@ getSpec <-
 
 getStatistics <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getStatistics")
@@ -312,7 +375,7 @@ getStatistics <-
 
 getStatus <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getStatus")
@@ -333,9 +396,9 @@ getTailRisk <-
 # ------------------------------------------------------------------------------
 
 
-getTailRiskBudgets <- 
-    function(object) 
-{   
+getTailRiskBudgets <-
+    function(object)
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getTailRiskBudgets")
@@ -345,21 +408,9 @@ getTailRiskBudgets <-
 # ------------------------------------------------------------------------------
 
 
-getAlpha <-
-    function(object)
-{   
-    # A function implemented by Diethelm Wuertz
-
-    UseMethod("getAlpha")
-}
-
-
-# ------------------------------------------------------------------------------
-
-
 getTargetReturn <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getTargetReturn")
@@ -371,7 +422,7 @@ getTargetReturn <-
 
 getTargetRisk <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getTargetRisk")
@@ -383,7 +434,7 @@ getTargetRisk <-
 
 getTrace <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getTrace")
@@ -395,7 +446,7 @@ getTrace <-
 
 getType <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getType")
@@ -407,7 +458,7 @@ getType <-
 
 getWeights <-
     function(object)
-{   
+{
     # A function implemented by Diethelm Wuertz
 
     UseMethod("getWeights")

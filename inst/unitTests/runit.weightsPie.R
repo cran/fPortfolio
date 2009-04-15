@@ -34,7 +34,7 @@ test.weightsPie.portfolio <-
     function()
 {  
     # Data:
-    data = as.timeSeries(data(smallcap.ts))
+    data = SMALLCAP.RET
     data = data[, c("BKE", "GG", "GYMB", "KRON")]
     
     # Specification:
@@ -76,7 +76,7 @@ test.weightsPie.frontier <-
     function()
 {  
     # Data:
-    data = as.timeSeries(data(smallcap.ts))
+    data = SMALLCAP.RET
     data = data[, c("BKE", "GG", "GYMB", "KRON")]
     
     # Specification:
@@ -98,7 +98,7 @@ test.weightsPie.frontier <-
             col = qualiPalette(4, "Pastel1"), 
             box = FALSE, radius = 0.6, cex = 0.8, font = 4) 
         copyright()
-        Return = round(100*getTargetReturn(frontier)[pos,], 2)
+        Return = round(100*getTargetReturn(frontier@portfolio)[pos,], 2)
         mtext(paste("Return", Return, "%"), 
             side = 3, line = 0.5, adj= 0, font = 2)
         abline(h = 1.07, lwd = 2)

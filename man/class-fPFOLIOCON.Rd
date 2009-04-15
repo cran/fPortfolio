@@ -14,7 +14,7 @@
 
 \description{
   
-    Creates a fPFOLIOCON object.
+    Creates a fPFOLIOCON object from string constraints.
       
 }
 
@@ -34,7 +34,13 @@
 }
 
 
-%\references{}
+\references{
+
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
+    
+}
 
 
 \examples{
@@ -45,12 +51,17 @@
    getSlots("fPFOLIOCON")   
     
 ## data -
-   data = as.timeSeries(data(smallcap.ts))
+   Data = SMALLCAP.RET
+   print(head(Data))
+   print(class(Data))
 
-## portfolioConstraints -
-   spec = portfolioSpec()
-   setTargetReturn(spec) = mean(data)
-   portfolioConstraints(data, spec, "LongOnly")
+## spec -
+   Spec = portfolioSpec()
+   setTargetReturn(Spec) = mean(Data)
+
+## constraints -
+   Constraints = "LongOnly"
+   portfolioConstraints(Data, Spec, Constraints)
 }
 
 

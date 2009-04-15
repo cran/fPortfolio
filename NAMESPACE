@@ -8,11 +8,10 @@ importFrom("fAssets",
            "pfolioReturn")
 importFrom("fBasics",
            "seqPalette",
-           "getModel",
            "interactivePlot",
+           "getTitle",
            ".sliderMenu")
 importFrom("graphics",
-           "plot",
            "legend",
            "par",
            "polygon",
@@ -30,39 +29,49 @@ importFrom("methods",
            "show",
            "@<-",
            "new")
+importFrom("robustbase",
+           "scaleTau2")
 importFrom("stats",
            "cov",
            "ts.plot",
            "weights",
+           "quantile",
            "pnorm",
            "sd",
            "optimize",
            "rcauchy",
            "rnorm")
 importFrom("timeDate",
-           "timeFirstDayInMonth",
-           "timeLastDayInMonth",
            "getRmetricsOptions",
-           "setRmetricsOptions")
+           "setRmetricsOptions",
+           "timeFirstDayInMonth",
+           "timeLastDayInMonth")
 importFrom("timeSeries",
+           "plot",
+           "colnames",
            "colnames<-",
            "diff",
            "lines",
            "points",
+           "colMeans",
+           "getDataPart",
            "rownames<-",
+           "as.matrix",
            "colMaxs",
            "colMins",
-           "quantile",
            "description",
            "is.timeSeries",
            "series",
            "rev",
            "sort",
            "drawdowns",
+           "cut",
            "end",
            "start",
            "time",
-           "print")
+           "print",
+           "colQuantiles",
+           "rownames")
 
 ################################################
 ## S4 classes
@@ -71,6 +80,7 @@ importFrom("timeSeries",
 exportClasses("fPFOLIOCON",
               "fPFOLIODATA",
               "fPFOLIOSPEC",
+              "fPFOLIOVAL",
               "fPORTFOLIO" )
 exportMethods("show" )
 
@@ -78,11 +88,17 @@ exportMethods("show" )
 ## S3 classes
 ################################################
 
+S3method("getA", "fPFOLIOSPEC")
+S3method("getA", "fPORTFOLIO")
 S3method("getAlpha", "fPFOLIOSPEC")
+S3method("getAlpha", "fPFOLIOVAL")
 S3method("getAlpha", "fPORTFOLIO")
 S3method("getConstraints", "fPORTFOLIO")
+S3method("getControl", "fPFOLIOSPEC")
+S3method("getControl", "fPORTFOLIO")
 S3method("getCov", "fPFOLIODATA")
 S3method("getCov", "fPORTFOLIO")
+S3method("getCovRiskBudgets", "fPFOLIOVAL")
 S3method("getCovRiskBudgets", "fPORTFOLIO")
 S3method("getData", "fPFOLIODATA")
 S3method("getData", "fPORTFOLIO")
@@ -91,6 +107,7 @@ S3method("getEstimator", "fPFOLIOSPEC")
 S3method("getEstimator", "fPORTFOLIO")
 S3method("getMean", "fPFOLIODATA")
 S3method("getMean", "fPORTFOLIO")
+S3method("getMessages", "fPFOLIOSPEC")
 S3method("getMu", "fPFOLIODATA")
 S3method("getMu", "fPORTFOLIO")
 S3method("getNames", "fPFOLIODATA")
@@ -98,17 +115,23 @@ S3method("getNames", "fPORTFOLIO")
 S3method("getNAssets", "fPFOLIODATA")
 S3method("getNAssets", "fPORTFOLIO")
 S3method("getNFrontierPoints", "fPFOLIOSPEC")
+S3method("getNFrontierPoints", "fPFOLIOVAL")
 S3method("getNFrontierPoints", "fPORTFOLIO")
 S3method("getObjective", "fPFOLIOSPEC")
+S3method("getObjective", "fPORTFOLIO")
 S3method("getOptim", "fPFOLIOSPEC")
 S3method("getOptim", "fPORTFOLIO")
 S3method("getOptimize", "fPFOLIOSPEC")
 S3method("getOptimize", "fPORTFOLIO")
+S3method("getOptions", "fPFOLIOSPEC")
+S3method("getOptions", "fPORTFOLIO")
 S3method("getParams", "fPFOLIOSPEC")
 S3method("getParams", "fPORTFOLIO")
 S3method("getPortfolio", "fPFOLIOSPEC")
+S3method("getPortfolio", "fPFOLIOVAL")
 S3method("getPortfolio", "fPORTFOLIO")
 S3method("getRiskFreeRate", "fPFOLIOSPEC")
+S3method("getRiskFreeRate", "fPFOLIOVAL")
 S3method("getRiskFreeRate", "fPORTFOLIO")
 S3method("getSeries", "fPFOLIODATA")
 S3method("getSeries", "fPORTFOLIO")
@@ -120,20 +143,24 @@ S3method("getSpec", "fPORTFOLIO")
 S3method("getStatistics", "fPFOLIODATA")
 S3method("getStatistics", "fPORTFOLIO")
 S3method("getStatus", "fPFOLIOSPEC")
+S3method("getStatus", "fPFOLIOVAL")
 S3method("getStatus", "fPORTFOLIO")
 S3method("getTailRiskBudgets", "fPORTFOLIO")
 S3method("getTailRisk", "fPFOLIODATA")
 S3method("getTailRisk", "fPFOLIOSPEC")
 S3method("getTailRisk", "fPORTFOLIO")
 S3method("getTargetReturn", "fPFOLIOSPEC")
+S3method("getTargetReturn", "fPFOLIOVAL")
 S3method("getTargetReturn", "fPORTFOLIO")
 S3method("getTargetRisk", "fPFOLIOSPEC")
+S3method("getTargetRisk", "fPFOLIOVAL")
 S3method("getTargetRisk", "fPORTFOLIO")
 S3method("getTrace", "fPFOLIOSPEC")
 S3method("getTrace", "fPORTFOLIO")
 S3method("getType", "fPFOLIOSPEC")
 S3method("getType", "fPORTFOLIO")
 S3method("getWeights", "fPFOLIOSPEC")
+S3method("getWeights", "fPFOLIOVAL")
 S3method("getWeights", "fPORTFOLIO")
 S3method("plot", "fPORTFOLIO")
 S3method("summary", "fPORTFOLIO")
@@ -178,15 +205,18 @@ export(
     "frontierPlot",
     "frontierPlotControl",
     "frontierPoints",
+    "getA",
     "getAlpha",
     "getConstraints",
     "getConstraintsTypes",
+    "getControl",
     "getCov",
     "getCovRiskBudgets",
     ".getCovRiskBudgets.fPORTFOLIO",
     "getData",
     "getEstimator",
     "getMean",
+    "getMessages",
     "getModel.fPFOLIOSPEC",
     "getModel.fPORTFOLIO",
     "getMu",
@@ -196,6 +226,7 @@ export(
     "getObjective",
     "getOptim",
     "getOptimize",
+    "getOptions",
     "getParams",
     "getPortfolio",
     "getRiskFreeRate",
@@ -256,6 +287,9 @@ export(
     ".rshortExact",
     ".rshortExactArguments",
     ".rshortExactControl",
+    ".rsymphony",
+    ".rsymphonyArguments",
+    ".rsymphonyControl",
     "setAlpha<-",
     "setEstimator<-",
     "setNFrontierPoints<-",
@@ -277,7 +311,9 @@ export(
     "solveRglpk",
     "solveRquadprog",
     "solveRshortExact",
+    "solveRsymphony",
     "spearmanEstimator",
+    "tailoredFrontierPlot",
     ".tailRiskBudgetsLinePlot",
     "tailRiskBudgetsPie",
     "tailRiskBudgetsPlot",

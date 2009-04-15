@@ -21,9 +21,10 @@ portfolioSpec(
         params = list(alpha = 0.05, a = 1)), 
     portfolio = list(weights = NULL, targetReturn = NULL, 
         targetRisk = NULL, riskFreeRate = 0, nFrontierPoints = 50, 
-        status = 0),
+        status = NA),
     optim = list(solver = "solveRquadprog", objective = NULL,
-        params = list(meq = 2), control = list(), trace = FALSE))
+        options = list(meq = 2), control = list(), trace = FALSE),
+    messages = list())
 }
 
 
@@ -46,7 +47,9 @@ portfolioSpec(
         for all control settings of the solver, and a logical flag, \code{trace}
         denoting if the optimization should be traced.
         }
-
+    \item{messages}{
+        a list, for optional messages.
+        }
 }       
 
 
@@ -346,23 +349,25 @@ portfolioSpec(
 }
 
 
-%\references{}
+\references{
+
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
+    
+}
 
 
 \examples{
 ## portfolioSpec -
-   # Show Default Portfolio Specifications:
    spec = portfolioSpec()
    
 ## getRiskFreeRate -
-   # Get Risk Free Rate
    getRiskFreeRate(spec) 
    spec
    
 ## setRiskFreeRate -
-   # Modify Risk Free Rate
    setRiskFreeRate(spec) <- 2.5
-
 }
 
 

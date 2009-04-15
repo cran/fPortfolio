@@ -71,18 +71,25 @@ frontierPoints(object, frontier = c("both", "lower", "upper"),
 }
 
 
+\references{
+
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
+    
+}
+
+
 \examples{
 ## data -
-   # Load Data and Convert to timeSeries Object:
-   Data = as.timeSeries(data(smallcap.ts))
+   Data = SMALLCAP.RET
    Data = Data[, c("BKE", "GG", "GYMB", "KRON")]
+   Data
 
 ## portfolioFrontier -  
-   # Compute Efficient Frontier:
    Frontier = portfolioFrontier(Data) 
    
-## frontierPoints:
-   # Extract Points and Plot:
+## frontierPoints - 
    x = frontierPoints(Frontier, risk = "VaR", auto = FALSE)
    x = frontierPoints(Frontier, risk = "CVaR", auto = FALSE)
 

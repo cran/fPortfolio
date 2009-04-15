@@ -16,10 +16,11 @@
 
 
 ################################################################################
-# FUNCTION:                     DESCRIPTION:
-#  portfolioSpec                 Specifies a portfolio to be optimized
-#  .checkWeights                 Forces tiny weights to zero
-#  .checkSpecVsConstraints       Stops if spec and constraints do not match
+# FUNCTION:                DESCRIPTION:
+#  portfolioSpec            Returns an object of class fPFOLIOSPEC
+#  .checkWeights            Forces tiny weights to zero
+#  .checkSpecVsConstraints  Checks if spec and constraints do match
+#  .checkTargetReturn       Checks if target Return is defined
 ################################################################################
 
 
@@ -38,15 +39,17 @@ function(
          targetRisk = NULL,
          riskFreeRate = 0,
          nFrontierPoints = 50,
-         status = 0),
+         status = NA),
     optim = list(
          solver = "solveRquadprog",     # Alt: "solveRdonlp2" 
                                         #      "solveRglpk", 
-                                        #      "solveRsocp"
+                                        #      "solveRsymphony"
+                                        #      "solveRsocp" ...
          objective = NULL,
-         params = list(meq = 2),
+         options = list(meq = 2),
          control = list(),
-         trace = FALSE)
+         trace = FALSE),
+    messages = list()
     )
 {
     # Description:
@@ -100,14 +103,23 @@ function(
     # Optim Slot:
     Optim = list(
         solver = "solveRquadprog",
+        objective = NULL,
+        options = list(meq = 2),
+        control = list(),
         trace = FALSE)
     Optim[(Names <- names(optim))] <- optim
+    
+    # Messages Slot:
+    Messages = list(
+        list = NULL)
+    Messages[(Names <- names(messages))] <- messages
 
     # Return Value:
     new("fPFOLIOSPEC",
         model = Model,
         portfolio = Portfolio,
-        optim = Optim)
+        optim = Optim,
+        messages = messages)
 }
 
 
@@ -147,7 +159,7 @@ function(
     # A function implemented by Diethelm Wuertz
     
     # Description:
-    #   Stops if spec versus constraints do mot match
+    #   Check if spec and constraints do match
     
     # Arguments:
     #   spec - portfolio specification as fPFOLIOSPEC object
@@ -173,6 +185,8 @@ function(
 .checkTargetReturn <-
     function(spec)
 {    
+    # A function implemented by Diethelm Wuertz
+    
     # Description:
     #   Check if target Return is defined
     

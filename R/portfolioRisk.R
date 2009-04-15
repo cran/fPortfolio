@@ -50,11 +50,18 @@ covRisk <-
     #   data - any univariate or multivariate object which can
     #       be transformed into a matrix
     #   weights - a numeric vector, the weights vector
-    
+
+    # Example:
+    #   data = LPP2005.RET[, 1:6]; weights = rep(1/6, times = 6)
+    #   covRisk(data, weights)
+
     # FUNCTION:
 
     # Data:
-    Data = as.matrix(data)
+    if (inherits(data, "timeSeries"))
+        data <- getDataPart(data)
+
+    Data <- as.matrix(data)
     nAssets = dim(Data)[2]
 
     # Covariance Matrix:
@@ -88,7 +95,13 @@ varRisk <-
     #   weights - a numeric vector, the weights vector
     #   alpha - a numeric value, the quantile
 
+    # Example:
+    #   data = LPP2005.RET[, 1:6]; weights = rep(1/6, times = 6)
+    #   varRisk(data, weights)
+
     # FUNCTION:
+    if (inherits(data, "timeSeries"))
+        data <- getDataPart(data)
 
     # VaR:
     weights = as.vector(weights)
@@ -118,7 +131,13 @@ cvarRisk <-
     #   weights - a numeric vector, the weights vector
     #   alpha - a numeric value, the quantile
 
+    # Example:
+    #   data = LPP2005.RET[, 1:6]; weights = rep(1/6, times = 6)
+    #   cvarRisk(data, weights)
+
     # FUNCTION:
+    if (inherits(data, "timeSeries"))
+        data <- getDataPart(data)
 
     # CVaR:
     weights = as.vector(weights)
@@ -146,6 +165,8 @@ cvarRisk <-
     #   Computes Covariance Risk for assets given weights and alpha
 
     # FUNCTION:
+    if (inherits(data, "timeSeries"))
+        data <- getDataPart(data)
 
     # Data:
     Data = as.matrix(data)
@@ -182,6 +203,8 @@ cvarRisk <-
     #   alpha - a numeric value, the quantile
 
     # FUNCTION:
+    if (inherits(x, "timeSeries"))
+        x <- getDataPart(x)
 
     # VaR:
     X = as.matrix(x) %*% weights
@@ -211,6 +234,8 @@ cvarRisk <-
     #   alpha - a numeric value, the quantile
 
     # FUNCTION:
+    if (inherits(x, "timeSeries"))
+        x <- getDataPart(x)
 
     # CVaR:
     X = as.matrix(x) %*% weights

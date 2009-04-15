@@ -126,8 +126,31 @@
 }
 
 
+\references{
+
+Wuertz, D., Chalabi, Y., Chen W., Ellis A. (2009);
+    \emph{Portfolio Optimization with R/Rmetrics}, 
+    Rmetrics eBook, Rmetrics Association and Finance Online, Zurich.
+    
+}
+
+
 \examples{
-## ---
+## data -
+   Data = SMALLCAP.RET
+   Data = Data[, c("BKE", "GG", "GYMB", "KRON")]
+   Data
+   
+## spec -
+   Spec = portfolioSpec()
+   Spec
+   
+## constraints -
+   Constraints = "LongOnly"
+   Constraints
+   
+## tangencyPortfolio -
+   tg = tangencyPortfolio(Data, Spec, Constraints)   
 }
 
 
