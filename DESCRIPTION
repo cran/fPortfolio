@@ -1,7 +1,7 @@
 Package: fPortfolio
-Version: 290.75
-Revision: 4042
-Date: 2009-04-15
+Version: 2100.76
+Revision: 4061
+Date: 2009-04-17
 Title: Rmetrics - Portfolio Selection and Optimization
 Author: Diethelm Wuertz
 Depends: R (>= 2.7.0), methods, MASS, timeDate, timeSeries (>= 290.81),
@@ -18,6 +18,6 @@ LazyLoad: yes
 LazyData: yes
 License: GPL (>= 2)
 URL: http://www.rmetrics.org
-Packaged: 2009-04-15 17:34:53 UTC; yankee
+Packaged: 2009-04-17 13:55:08 UTC; yankee
 Repository: CRAN
-Date/Publication: 2009-04-16 07:00:56
+Date/Publication: 2009-04-17 19:06:59
