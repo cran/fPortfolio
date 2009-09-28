@@ -69,7 +69,12 @@ solveRquadprog <-
 
         # Save Arguments:
         ans$optim$args = args
+        
+        # class:
+        class(ans) = c("solveRfoo", "list")
 
+        ##if(ans$status != 0)
+        ##print(ans)
     }
 
     # Return Value:

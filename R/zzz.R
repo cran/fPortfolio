@@ -16,14 +16,18 @@
 ################################################################################
 
 
-.First.lib <- function(libname, pkgname){
+.First.lib <-
+function(libname, pkgname)
+{
     if(!is.numeric(getRmetricsOptions("length.print")))
 	setRmetricsOptions(length.print = 5)
 }
 
 # ------------------------------------------------------------------------------
 
-.onLoad <- function(libname, pkgname) {
+.onLoad <-
+function(libname, pkgname)
+{
     if(!is.numeric(getRmetricsOptions("length.print")))
 	setRmetricsOptions(length.print = 5)
 }

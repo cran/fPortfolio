@@ -3,76 +3,15 @@
 ## import name space
 ################################################
 
-importFrom("fAssets",
-           "assetsLPM",
-           "pfolioReturn")
-importFrom("fBasics",
-           "seqPalette",
-           "interactivePlot",
-           "getTitle",
-           ".sliderMenu")
-importFrom("graphics",
-           "legend",
-           "par",
-           "polygon",
-           "text",
-           "abline",
-           "axis",
-           "mtext",
-           "pie",
-           "barplot",
-           "title",
-           "grid")
-importFrom("grDevices",
-           "rainbow")
-importFrom("methods",
-           "show",
-           "@<-",
-           "new",
-           "is")
-importFrom("robustbase",
-           "scaleTau2")
-importFrom("stats",
-           "cov",
-           "ts.plot",
-           "weights",
-           "quantile",
-           "pnorm",
-           "sd",
-           "optimize",
-           "rcauchy",
-           "rnorm")
-importFrom("timeDate",
-           "getRmetricsOptions",
-           "setRmetricsOptions",
-           "timeFirstDayInMonth",
-           "timeLastDayInMonth")
-importFrom("timeSeries",
-           "plot",
-           "colnames",
-           "colnames<-",
-           "diff",
-           "lines",
-           "points",
-           "colMeans",
-           "getDataPart",
-           "rownames<-",
-           "as.matrix",
-           "colMaxs",
-           "colMins",
-           "description",
-           "is.timeSeries",
-           "series",
-           "rev",
-           "sort",
-           "drawdowns",
-           "cut",
-           "end",
-           "start",
-           "time",
-           "print",
-           "colQuantiles",
-           "rownames")
+import("methods")
+import("MASS")
+import("quadprog")
+import("robustbase")
+import("Rglpk")
+import("timeDate")
+import("timeSeries")
+import("fBasics")
+import("fAssets")
 
 ################################################
 ## S4 classes
@@ -173,6 +112,8 @@ S3method("summary", "fPORTFOLIO")
 export(
     ".addlegend",
     ".attributesWheel",
+    ".baggedEstimator",
+    ".bayesSteinEstimator",
     ".cfgFit",
     ".checkSpec",
     ".checkSpecVsConstraints",
@@ -192,6 +133,7 @@ export(
     "cvarRisk",
     ".cvarRisk",
     ".cvarSolveTwoAssets",
+    ".donostahEstimator",
     "efficientPortfolio",
     "eqsumWConstraints",
     "equalWeightsPoints",
@@ -247,6 +189,7 @@ export(
     "getWeights",
     "kendallEstimator",
     ".lambdaTailRisk",
+    ".ledoitWolfEstimator",
     "listFConstraints",
     "lpmEstimator",
     ".madRglpkArguments",
@@ -278,6 +221,7 @@ export(
     ".rglpk",
     ".rglpkArguments",
     ".rglpkControl",
+    ".rmtEstimator",
     "rollingCmlPortfolio",
     "rollingMinvariancePortfolio",
     "rollingPortfolioFrontier",
@@ -289,9 +233,6 @@ export(
     ".rshortExact",
     ".rshortExactArguments",
     ".rshortExactControl",
-    ".rsymphony",
-    ".rsymphonyArguments",
-    ".rsymphonyControl",
     "setAlpha<-",
     "setEstimator<-",
     "setNFrontierPoints<-",
@@ -313,8 +254,8 @@ export(
     "solveRglpk",
     "solveRquadprog",
     "solveRshortExact",
-    "solveRsymphony",
     "spearmanEstimator",
+    ".studentEstimator",
     "tailoredFrontierPlot",
     ".tailRiskBudgetsLinePlot",
     "tailRiskBudgetsPie",
