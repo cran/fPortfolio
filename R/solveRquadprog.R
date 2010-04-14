@@ -69,7 +69,7 @@ solveRquadprog <-
 
         # Save Arguments:
         ans$optim$args = args
-        
+
         # class:
         class(ans) = c("solveRfoo", "list")
 
@@ -168,49 +168,29 @@ solveRquadprog <-
     #       becoming active first. vector with the indices of the
     #       active constraints at the solution.
 
-    # FUNCION:
+    # FUNCTION:
 
-    # Settings:
-    n = nrow(Dmat)
-    q = ncol(Amat)
-    r = min(n, q)
-    work = rep(0, 2 * n + r * (r + 5)/2 + 2 * q + 1)
-
-    # Optimize:
-    optim = .Fortran("qpgen2",
-        as.double(Dmat),
-        dvec = as.double(dvec),
-        as.integer(n),
-        as.integer(n),
-        sol = as.double(rep(0, n)),
-        crval = as.double(0),
-        as.double(Amat),
-        as.double(bvec),
-        as.integer(n),
-        as.integer(q),
-        as.integer(meq),
-        iact = as.integer(rep(0, q)),
-        nact = as.integer(0),
-        iter = as.integer(rep(0, 2)),
-        work = as.double(work),
-        ierr = as.integer(0),
-        PACKAGE = "quadprog")
-
-    # Set Tiny Weights to Zero:
-    weights = .checkWeights(optim$sol)
-    attr(weights, "invest") = sum(weights)
+    optim <- try(solve.QP(Dmat, dvec, Amat, bvec, meq), silent = TRUE)
+    if (inherits(optim, "try-error")) {
+        weights <- rep(0, length(dvec))
+        optim <- list()
+        status <- 1
+    } else {
+        # Set Tiny Weights to Zero:
+        weights <- .checkWeights(optim$solution)
+        attr(weights, "invest") = sum(weights)
+        status <- 0
+    }
 
     # Compose Output List:
-    ans = list(
-        type = "MV",
-        solver = "solveRquadprog",
-        optim = optim,
-        weights = weights,
-        targetReturn = bvec[1],
-        targetRisk = sqrt(optim$sol %*% Dmat %*% optim$sol)[[1,1]],
-        objective = sqrt(optim$sol %*% Dmat %*% optim$sol)[[1,1]],
-        status = optim$ierr,
-        message = NA)
+    ans <- list(type = "MV",
+                solver = "solveRquadprog",
+                optim = optim,
+                weights = weights,
+                targetReturn = bvec[1],
+                targetRisk = sqrt(weights %*% Dmat %*% weights)[[1,1]],
+                objective = sqrt(weights %*% Dmat %*% weights)[[1,1]],
+                status = status, message = NA)
 
     # Return Value:
     ans

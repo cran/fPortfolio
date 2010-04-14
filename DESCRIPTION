@@ -1,10 +1,11 @@
 Package: fPortfolio
-Version: 2100.78
-Revision: 4422
-Date: 2009-09-28
-Title: Rmetrics - Portfolio Selection and Optimization
+Version: 2110.79
+Revision: 4825
+Date: 2010-04-14
+Title: Rmetrics - Portfolio Selection and Optimization - ebook
+        available at www.rmetrics.org
 Author: Rmetrics Core Team, Diethelm Wuertz
-Depends: R (>= 2.7.0), methods, MASS, quadprog, robustbase, timeDate,
+Depends: R (>= 2.8.0), methods, MASS, quadprog, robustbase, timeDate,
         timeSeries, fBasics, fAssets (>= 2100.78), Rglpk
 Suggests: RUnit, tcltk
 Maintainer: Rmetrics Core Team <Rmetrics-core@r-project.org>
@@ -17,6 +18,6 @@ LazyLoad: yes
 LazyData: yes
 License: GPL (>= 2)
 URL: http://www.rmetrics.org
-Packaged: 2009-09-28 12:27:30 UTC; yankee
+Packaged: 2010-04-14 07:08:59 UTC; yankee
 Repository: CRAN
-Date/Publication: 2009-09-28 14:10:22
+Date/Publication: 2010-04-17 18:38:24
