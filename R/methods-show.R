@@ -1,19 +1,4 @@
 
-# This library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU Library General Public
-# License as published by the Free Software Foundation; either
-# version 2 of the License, or (at your option) any later version.
-#
-# This library is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR Description. See the
-# GNU Library General Public License for more details.
-#
-# You should have received a copy of the GNU Library General
-# Public License along with this library; if not, write to the
-# Free Foundation, Inc., 59 Temple Place, Suite 330, Boston,
-# MA 02111-1307 USA
-
 
 ################################################################################
 # FUNCTION:                     DESCRIPTION:
@@ -27,6 +12,8 @@
 setMethod("show", "fPORTFOLIO",
     function(object)
 {
+    # A function implemented by Diethelm Wuertz and Yohan Chalabi
+    
     # Description:
     #   S4 Print Method for an object of class "fPORTFOLIO"
 
@@ -49,11 +36,16 @@ setMethod("show", "fPORTFOLIO",
         
     # Print Title:
     cat("\nTitle:\n ")
-        cat(getType(object),  getTitle(object),     "\n")
+        # cat(getType(object),  getTitle(object),     "\n")
+        cat(getType(object),  object@title,     "\n")
         cat(" Estimator:        ", getEstimator(object), "\n")
         cat(" Solver:           ", getSolver(object),    "\n")
         cat(" Optimize:         ", getOptimize(object),  "\n")
         cat(" Constraints:      ", getConstraintsTypes(object), "\n")
+    if (object@spec@ampl$ampl) {
+        cat(" AMPL Project:     ", object@spec@ampl$project, "\n")
+        cat(" AMPL Solver:      ", object@spec@ampl$solver, "\n")
+    }
     if (!identical(index, 1))
         cat(" Portfolio Points: ", length(index), "of", nFrontierPoints, "\n")
     if (getType(object) == "CVaR")
@@ -61,8 +53,8 @@ setMethod("show", "fPORTFOLIO",
         #at(" Objective:        ", getObjective(object), "\n")
 
     # Assets:
-    nAssets = getNAssets(object)
-    Names = getNames(object)
+    nAssets <- getNAssets(object)
+    Names <- names(object@data@statistics$mu)
 
     # Print Target Weights:
     cat("\nPortfolio Weights:\n")
@@ -80,23 +72,38 @@ setMethod("show", "fPORTFOLIO",
     rownames(table) = 1:NROW(table)
     print.table(table[index, ])
 
+    # PrintCVaR Risk Budgets:
+    # to do ...
+    
     # Print Tail Risk Budgets:
     # to do ...
 
     # Print Target Return and Risks:
     # DW: Note object@targetR* is a list do not use getTargetR*()
-    cat("\nTarget Return and Risks:\n")
-    targetReturn = matrix(getTargetReturn(object@portfolio), ncol = 2)
-    targetRisk = matrix(getTargetRisk(object@portfolio), ncol = 4)
-    target = round(cbind(targetReturn, targetRisk), digits = 4)
-    colnames(target) = c("mean", "mu", "Cov", "Sigma", "CVaR", "VaR")
+    targetReturn <- matrix(getTargetReturn(object@portfolio), ncol = 2)
+    targetRisk <- matrix(getTargetRisk(object@portfolio), ncol = 4)
+    target <- round(cbind(targetReturn, targetRisk), digits = 4)
+    if (class(getSeries(object)) == "logical") {
+        cat("\nTarget Return and Risk:\n")
+        target = target[, c(1, 3), drop = FALSE]
+        colnames(target) = c("mean", "Cov")
+    } else if( class(getSeries(object)) == "timeSeries") {
+        cat("\nTarget Returns and Risks:\n")
+        colnames(target) = c("mean", "mu", "Cov", "Sigma", "CVaR", "VaR")
+    }
     rownames(target) = 1:NROW(target)
-    print.table(target[index, ])
-
+    # DW Only print mu and Sigma for robust estimators!
+    if (getEstimator(object) == "covEstimator") {
+        print.table(target[index, -c(2,4)])
+    } else {
+        print.table(target[index, ])
+    }
+    
     # Print Description:
     cat("\nDescription:\n ")
-    cat(getDescription(object), "\n")
-
+    # cat(getDescription(object), "\n")
+    cat(object@description, "\n")
+    
     # Return Value:
     invisible(NULL)
 })
@@ -108,6 +115,8 @@ setMethod("show", "fPORTFOLIO",
 setMethod("show", "fPFOLIODATA",
     function(object)
 {
+    # A function implemented by Diethelm Wuertz and Yohan Chalabi
+    
     # Description:
     #   S4 Print Method for an object of class "fPFOLIODATA"
 
@@ -117,14 +126,25 @@ setMethod("show", "fPFOLIODATA",
     # FUNCTION:
 
     # Series:
-    cat("\nHead/Tail Series Data:\n\n")
-    print(head(object@data$series, n = 3))
-    print(tail(object@data$series, n = 3))
-
+    cat("\nHead/Tail Series Data:\n")
+    if(is.null(dim(object@data$series))) {   
+        cat("  No time series data available.\n")
+    } else {
+        cat("\n")
+        print(head(object@data$series, n = 3))
+        print(tail(object@data$series, n = 3))
+    }
+    
     # Statistics:
     cat("\nStatistics:\n\n")
-    print(object@statistics)
-
+    if(is.null(dim(object@data$series))) { 
+        # Print mean and Cov only ..
+        print(object@statistics[1:2])
+    } else {
+        # Print mean, Cov, estimator, mu and Sigma ...
+        print(object@statistics)
+    }
+    
     # Tailrisk:
     # NYI
 
@@ -139,6 +159,8 @@ setMethod("show", "fPFOLIODATA",
 setMethod("show", "fPFOLIOSPEC",
     function(object)
 {
+    # A function implemented by Diethelm Wuertz and Yohan Chalabi
+    
     # Description:
     #   S4 Print Method for an object of class "fPFOLIOSPEC"
 
@@ -163,9 +185,11 @@ setMethod("show", "fPFOLIOSPEC",
     if (length(object@model$tailRisk) > 0) {
         cat("\n Tail Risk:                ",
             object@model$tailRisk)
-    } else {
-        cat("\n Tail Risk:                ", "list()")
     }
+    # DW:
+    # } else {
+    #     cat("\n Tail Risk:                ", "list()")
+    # }
 
     cat("\n Params:                   ",
         paste(names(unlist(object@model$params)), "=",
@@ -224,16 +248,21 @@ setMethod("show", "fPFOLIOSPEC",
         cat("\n Objective:                ", "list()" )
     }
 
-    cat("\n Options:                  ",
-        paste(names(unlist(object@optim$options)), "=",
-            unlist(object@optim$options)))
+    if (substr(object@optim$solver, 1, 14) != "solveRquadprog") object@optim$options$meq <- NULL
+    if (length(object@optim$options) > 0) {
+        cat("\n Options:                  ",
+            paste(names(unlist(object@optim$options)), "=",
+                unlist(object@optim$options)))
+    }
 
     if (length(object@optim$control) > 0) {
         cat("\n Control:                  ",
         as.character(object@optim$control))
-    } else {
-        cat("\n Control:                  ", "list()")
     }
+    # DW
+    # } else {
+    #     cat("\n Control:                  ", "list()")
+    # }
 
 
     cat("\n Trace:                    ",
@@ -242,15 +271,33 @@ setMethod("show", "fPFOLIOSPEC",
 
     # Messages:
 
-    cat("\n\nMessage List:\t")
-
-    if (!is.null(object@messages$list)) {
-        cat("\n List:                     ",
-            object@messages$list)
-    } else {
-        cat("\n List:                     ", "NULL")
+    if (object@messages$messages)
+    {
+        cat("\n\nMessage List:\t")
+    
+        if (!is.null(object@messages$list)) {
+            cat("\n List:                     ",
+                object@messages$list)
+        } else {
+            cat("\n List:                     ", "NULL")
+        }
     }
 
+    # AMPL:
+    
+    if (object@ampl$ampl)
+    {
+        cat("\n\nAMPL List:\t")
+            
+        cat("\n Project:                  ",
+            object@ampl$project)
+    
+        cat("\n Solver:                   ",
+            object@ampl$solver)
+            
+        cat("\n Trace:                    ",
+            object@ampl$trace)
+    }
 
     cat("\n")
 
@@ -266,6 +313,8 @@ setMethod("show", "fPFOLIOSPEC",
 setMethod("show", "fPFOLIOCON",
     function(object)
 {
+    # A function implemented by Diethelm Wuertz and Yohan Chalabi
+    
     # Description:
     #   S4 Print Method for an object of class "fPFOLIODATA"
 
@@ -320,6 +369,17 @@ setMethod("show", "fPFOLIOCON",
         colnames(minmaxF) = names(listF)
         rownames(minmaxF) = c("Lower", "Upper")
         print(minmaxF)
+    }
+    
+    nCard = object@nCardConstraints
+    if(nCard > 0) {
+        minCard = object@minCardConstraints
+        maxCard = object@maxCardConstraints
+        minmaxCard = rbind(minCard, maxCard)
+        #colnames(minmaxCard) = names(listF)
+        rownames(minmaxCard) = c("Lower", "Upper")
+        cat("\nCardinality Constraints:\n")
+        print(minmaxCard)
     }
 
 

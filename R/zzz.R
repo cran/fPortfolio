@@ -13,25 +13,57 @@
 # Public License along with this library; if not, write to the
 # Free Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA  02111-1307  USA
-################################################################################
-
-
-.First.lib <-
-function(libname, pkgname)
-{
-    if(!is.numeric(getRmetricsOptions("length.print")))
-	setRmetricsOptions(length.print = 5)
-}
-
-# ------------------------------------------------------------------------------
-
-.onLoad <-
-function(libname, pkgname)
-{
-    if(!is.numeric(getRmetricsOptions("length.print")))
-	setRmetricsOptions(length.print = 5)
-}
 
 
 ################################################################################
+
+
+.onAttach <- 
+function(libname, pkgname)
+{
+  # do whatever needs to be done when the package is loaded
+  # some people use it to bombard users with 
+  # messages using 
+  
+  packageStartupMessage( "\n" )
+  packageStartupMessage( "Rmetrics Package fPortfolio" ) 
+  packageStartupMessage( "Portfolio Optimization" )
+  packageStartupMessage( "Copyright (C) 2005-2014 Rmetrics Association Zurich" )  
+  packageStartupMessage( "Educational Software for Financial Engineering and Computational Science" ) 
+  packageStartupMessage( "Rmetrics is free software and comes with ABSOLUTELY NO WARRANTY." ) 
+  packageStartupMessage( "https://www.rmetrics.org --- Mail to: info@rmetrics.org" ) 
+}
+
+
+###############################################################################
+
+
+.onLoad <- 
+  function(libname, pkgname)
+{
+    if(!is.numeric(timeDate::getRmetricsOptions("length.print"))) 
+        timeDate::setRmetricsOptions(length.print = 5)
+    
+    timeDate::setRmetricsOptions(.x.save = NA)
+    
+    eval(attach <- function(what) 
+      base::attach(what, warn.conflicts=FALSE), envir=.GlobalEnv)
+
+}
+    # Startup Mesage and Desription:
+    # MSG <- if(getRversion() >= "2.5") packageStartupMessage else message
+    # dsc <- packageDescription(pkg)
+    # if(interactive() || getOption("verbose")) { 
+    #    title <- paste(strsplit(dsc$Title, split = "-")[1:2])
+    #    MSG(paste(
+    #        "\nPackage ", pkg, " (", dsc$Version, ") loaded.\n",
+    #        dsc$Title, "\n", 
+    #        dsc$Copyright, ", ", dsc$License, "\n", 
+    #        dsc$Author, "\n", 
+    #        dsc$URL, "\n", sep="")) 
+    # }
+
+
+###############################################################################
+
 

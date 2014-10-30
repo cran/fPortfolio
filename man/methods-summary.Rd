@@ -1,4 +1,4 @@
-\name{summary-methods}
+\name{methods-summary}
 
 
 \alias{summary-methods}

@@ -1,4 +1,4 @@
-\name{plot-methods}
+\name{methods-plot}
 
 
 \alias{plot-methods}

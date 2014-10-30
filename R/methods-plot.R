@@ -16,22 +16,20 @@
 
 
 ################################################################################
-# FUNCTION:                     PRINT AND PLOT METHODS:
+# FUNCTION:                     DESCRIPTION:
 #  plot.fPORTFOLIO               S3 Plot method for 'fPORTFOLIO' objects
+# FUNCTION:                     DESCRIPTION:
+#  .fPortfolio.plot1..8          Internal plot functions
 ################################################################################
 
 
 plot.fPORTFOLIO <-
     function(x, which = "ask", control = list(), ...)
 {
-    # A function implemented by Rmetrics
+    # A function implemented by Diethelm Wuertz
 
     # Description:
     #   Plot method for an object of class 'fPORTFOLIO'
-
-    # Note:
-    #   This method can also be used for plotting graphs fitted by
-    #   the function 'garch' from the contributed R package 'tseries'.
 
     # FUNCTION:
 

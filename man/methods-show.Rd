@@ -1,4 +1,4 @@
-\name{show-methods}
+\name{methods-show}
 
 
 \alias{show-methods}
