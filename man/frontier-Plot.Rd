@@ -25,7 +25,7 @@
 
     Plots the efficient frontier of an 
     optimized portfolio and allows adding
-    points and lines from specified portfolios
+    points and lines from specific portfolios
 
 }
 
