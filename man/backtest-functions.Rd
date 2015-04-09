@@ -33,7 +33,7 @@ emaSmoother(weights, spec, backtest)
 
     \item{data}{
         a multivariate time series described by an S4 object of class
-        \code{timeSeries}. If your timeSerie is not a \code{timeSeries}
+        \code{timeSeries}. If your timeSeries is not a \code{timeSeries}
         object, consult the generic function \code{as.timeSeries} to 
         convert your time series.
         }

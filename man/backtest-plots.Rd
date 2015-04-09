@@ -48,7 +48,7 @@ backtestReportPlot(object, cex=0.6, font=1, family="mono")
     \item{which}{
         an integer or string value. If the argument is an integer then it
         specifies which backtest plot should be displayed. If the argument
-        take the character value \code{all}, which is the default, then all 
+        takes the character value \code{all}, which is the default, then all 
         6 available backtest plots will be displayed.
         }
     \item{labels}{
@@ -66,11 +66,11 @@ backtestReportPlot(object, cex=0.6, font=1, family="mono")
     \item{at}{
         if NULL the time-axis ticks will be selected automatically. If
         \code{at} is a vector of \code{timeData} character formatted 
-        dates then the axis ticks ar taken from this vector. 
+        dates then the axis ticks are taken from this vector. 
         }
     \item{format}{
         if NULL the time-axis ticks are labeled automatically. If
-        \code{format} is a POSIX format string, tthen the label
+        \code{format} is a POSIX format string, then the label
         formats are taken from this string.
         }
     \item{cex, font, family}{

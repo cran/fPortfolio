@@ -62,7 +62,7 @@ solveRsolnp(data, spec, constraints)
 
 \value{
     
-    a list with the following named ebtries: 
+    a list with the following named entries: 
     \code{solver}, 
     \code{optim},
     \code{weights},

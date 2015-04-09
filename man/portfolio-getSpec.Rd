@@ -88,7 +88,7 @@
     \code{getParams} \tab Extracts parameters from specification, \cr
     \code{getWeights} \tab Extracts weights from a portfolio object, \cr
     \code{getTargetReturn} \tab Extracts target return from specification, \cr
-    \code{getTargetRisk} \tab Extracts target riks from specification, \cr
+    \code{getTargetRisk} \tab Extracts target risk from specification, \cr
     \code{getAlpha} \tab Extracts target VaR-alpha specification, \cr
     \code{getRiskFreeRate} \tab Extracts risk free rate from specification, \cr
     \code{getNFrontierPoints} \tab Extracts number of frontier points, \cr 

@@ -24,8 +24,8 @@
 \description{
 
     Plots the efficient frontier of an 
-    optimized portfolio and allows to add
-    points and lines from specif portfolios
+    optimized portfolio and allows adding
+    points and lines from specific portfolios
 
 }
 
@@ -115,7 +115,7 @@ tailoredFrontierPlot(object,
         an integer value, the number of Monte Carlo steps.
         }
     \item{xlim, ylim}{
-        two numeric vectors with two elelemts , the plot range. 
+        two numeric vectors with two elements, the plot range. 
         If set to NULL the values for the plot ranges are determined 
         automatically.
         }

@@ -37,7 +37,7 @@
     \code{setSmootherParams} \tab Sets additional parameters for Smoother function, \cr     
     \code{setSmootherLambda} \tab Sets the smoothing parameter Lambda, \cr     
     \code{setSmootherDoubleSmoothing} \tab Sets setting for double smoothing, \cr      
-    \code{setSmootherInitialWeights} \tab Sets the initial weights to used in the smoothing, \cr
+    \code{setSmootherInitialWeights} \tab Sets the initial weights used in the smoothing, \cr
     \code{setSmootherSkip} \tab Sets the number of skipped months. }
     
 }

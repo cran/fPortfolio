@@ -51,7 +51,7 @@
 \description{
   
     A collection and description of functions 
-    allowing to get information about an object
+    allowing getting information about an object
     of class fPORTFOLIO. 
     \cr
     

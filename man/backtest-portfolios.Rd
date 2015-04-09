@@ -50,7 +50,7 @@ portfolioSmoothing(object, backtest, trace = TRUE)
         a list as returned by the function \code{portfolioBacktesting}.
         }
     \item{trace}{
-        a logical flag, by default TRUE. Should the backtersting be traced?
+        a logical flag, by default TRUE. Should the backtesting be traced?
         }
 }
 

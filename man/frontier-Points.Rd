@@ -30,7 +30,7 @@ frontierPoints(object, frontier = c("both", "lower", "upper"),
         }
     \item{frontier}{
         a character string denoting which part of the
-        efficient portfolio should be extractacted.
+        efficient portfolio should be extracted.
         }
     \item{return}{
         character strings denoting which return measure
@@ -45,7 +45,7 @@ frontierPoints(object, frontier = c("both", "lower", "upper"),
         }
     \item{auto}{
         a logical flag. If \code{auto} is \code{TRUE}, the 
-        default setting, then the risk willbe identified
+        default setting, then the risk will be identified
         automatically from the object.
         }
 

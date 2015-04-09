@@ -9,7 +9,7 @@
 
 \description{
 
-    Allows to modify plot settings for the frontier plot.
+    Allows modifying plot settings for the frontier plot.
 
 }
 
@@ -69,7 +69,7 @@ frontierPlotControl(
     \item{xlim}{x-axis limit setting.}
     \item{ylim}{y-axis limit setting.}
     
-    \item{mcSteps}{Numer of Monte Carlo steps.}
+    \item{mcSteps}{Number of Monte Carlo steps.}
 
     \item{pieR}{Pie radius setting.}
     \item{piePos}{Pie position coordinates setting.}

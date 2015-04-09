@@ -165,7 +165,7 @@ weightsSlider(object, control = list(), \dots)
         }
     \item{singleAsset.cex}{
         a number, determining size (percentage) of the
-        singel asset portfolio symbols, by default 0.8.
+        single asset portfolio symbols, by default 0.8.
         }
     \item{twoAssets.cex}{ 
         a number, determining size (percentage) of the

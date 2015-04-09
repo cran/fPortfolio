@@ -13,7 +13,7 @@
 
 \description{
   
-    Prests variables for Data, portfolioObjective, portfolioReturn,
+    Preset variables for Data, portfolioObjective, portfolioReturn,
     and portfolioRisk in the case of NL math programming of 
     portfolios.
     
