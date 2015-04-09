@@ -68,7 +68,7 @@ nnveEstimator(x, spec = NULL, \dots)
     the functions return a list with two entries named \code{mu} and 
     \code{Sigma}.
     The first denotes the vector of column means, and the second the 
-    covariance matrix. Note, that the output of this function can be
+    covariance matrix. Note that the output of this function can be
     used as data input for the portfolio functions to compute the
     efficient frontier.
   
@@ -84,11 +84,11 @@ nnveEstimator(x, spec = NULL, \dots)
     \code{mcdEstimator} uses the function "cov.mcd" from the MASS package,\cr
     \code{lpmEstimator} returns lower partial moment estimator,\cr
     \code{kendallEstimator} returns Kendall's rank estimator,\cr
-    \code{spearmanEstimator} returns Spearman's rankestimator,\cr
+    \code{spearmanEstimator} returns Spearman's rank estimator,\cr
     \code{covMcdEstimator} requires "covMcd" from package robustbase,\cr
     \code{covOGKEstimator} requires "covOGK" from package robustbase,\cr
-    \code{nnveEstimator} uses builtin from package covRobust,\cr
-    \code{shrinkEstimator} uses builtin from package corpcor.
+    \code{nnveEstimator} uses built-in from package covRobust,\cr
+    \code{shrinkEstimator} uses built-in from package corpcor.
 
 }
     

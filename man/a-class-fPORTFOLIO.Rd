@@ -15,7 +15,7 @@
 \description{
   
     A collection and description of functions 
-    allowing to gain information about optimal 
+    allowing gaining information about optimal 
     portfolios. Generally, optimization is done 
     via three arguments, data, specification of 
     the portfolio, and constraints, while function
@@ -97,9 +97,9 @@
         \code{targetRisk} a numeric value specifying the target 
             risk,\cr  
         \code{targetMean} a numeric value specifying the target 
-            return determinated with function mean(),\cr
+            return determined by function mean(),\cr
         \code{targetStdev} a numeric value specifying the target risk in 
-            standart deviation as risk measure.
+            standard deviation as risk measure.
         }
     \item{@specification}{
         a list with one named element \code{spec} which represents an object 
@@ -239,7 +239,7 @@
         }
     \item{singleAsset.cex}{
         a number, determining size (percentage) of the
-        singel asset portfolio symbols, by default 0.8.
+        single asset portfolio symbols, by default 0.8.
         }
     \item{twoAssets.cex}{
         [plot, frontierSlider] - 

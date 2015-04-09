@@ -19,7 +19,7 @@
 \description{
   
     A collection and description of functions 
-    allowing to roll a portfolio optimization
+    allowing rolling a portfolio optimization
     over time.
     
     The functions are:

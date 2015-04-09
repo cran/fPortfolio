@@ -41,12 +41,12 @@ tailRiskBudgetsPie(object, pos = NULL, labels = TRUE, col = NULL,
         \code{portfolioFrontier}.
         }
     \item{pos}{
-        NULL or an integer value. If NULL it is assumend that we consider
-        a single portfolio like for example a tengency portfolio. However,
+        NULL or an integer value. If NULL it is assumed that we consider
+        a single portfolio like for example a tangency portfolio. However,
         if the \code{object} describes a whole frontier then \code{pos}
         has to be the number of that point from the frontier which we
         want to display. The frontier points are numbered from one up
-        to the value give by the number of frontier points, which can
+        to the value given by the number of frontier points, which can
         be retrieved by calling \code{getNFrontierPoints}.
         }
     \item{labels}{
@@ -54,8 +54,8 @@ tailRiskBudgetsPie(object, pos = NULL, labels = TRUE, col = NULL,
         automatically, which is the default case \code{labels=TRUE}. If 
         set to \code{FALSE} then the graph will be displayed
         undecorated and the user can it decorate by himself. 
-        Evenmore, if \code{labels} takes the value of a string vector, 
-        then the names of the assets from the porftolio \code{object} 
+        Even more, if \code{labels} takes the value of a string vector, 
+        then the names of the assets from the portfolio \code{object} 
         will be ignored, and the labels will be taken from the specified 
         string vector.
         }
@@ -97,7 +97,7 @@ tailRiskBudgetsPie(object, pos = NULL, labels = TRUE, col = NULL,
 
     The function \code{taikRiskBudgetsPie} displays the copulae tail
     risk budgets of a portfolio. Note, this is only possible if in the
-    portfolio specificsation a copulae tail risk is defined.
+    portfolio specification a copulae tail risk is defined.
 
 }
 

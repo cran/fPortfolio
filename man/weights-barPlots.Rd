@@ -49,7 +49,7 @@ riskBudgetsPlot(object, FUN=c("budgetsNormalVAR","budgetsNormalES",
         \code{portfolioFrontier}.
         }
     \item{labels}{
-        a logical flag, determining if the the graph should be labeled
+        a logical flag, determining if the graph should be labeled
         automatically, which is the default case \code{labels=TRUE}. If 
         set to \code{FALSE} then the graph will be displayed
         undecorated and the user can it decorate by himself.
@@ -67,12 +67,12 @@ riskBudgetsPlot(object, FUN=c("budgetsNormalVAR","budgetsNormalES",
         around the pie, by default the value is set to \code{TRUE}.
         }
     \item{legend}{
-        a logical value, determining if the the graph should be labeled
-        automatically, shich is the default case \code{labels=TRUE}. If 
+        a logical value, determining if the graph should be labeled
+        automatically, which is the default case \code{labels=TRUE}. If 
         set to \code{FALSE} then the graph will be displayed
         undecorated and the user can it decorate by himself. 
-        Evenmore, if \code{labels} takes the value of a string vector, 
-        then the names of the assets from the porftolio \code{object} 
+        Even more, if \code{labels} takes the value of a string vector, 
+        then the names of the assets from the portfolio \code{object} 
         will be ignored, and the labels will be taken from the specified 
         string vector.
         }
@@ -89,7 +89,7 @@ riskBudgetsPlot(object, FUN=c("budgetsNormalVAR","budgetsNormalES",
 
 \details{
 
-    These barplots plots allow for different views on the results obtained
+    These bar plots allow for different views on the results obtained
     from a feasible or an optimized portfolio.
     
     The function \code{weightsPlot} displays the weights composition

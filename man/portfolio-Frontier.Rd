@@ -9,7 +9,7 @@
 
 \description{
   
-    Compoutes the efficient portfolio frontier.
+    Computes the efficient portfolio frontier.
     
 }
     
@@ -30,7 +30,7 @@ portfolioFrontier(data, spec = portfolioSpec(), constraints = "LongOnly",
         }
     \item{data}{
         a multivariate time series described by an S4 object of class
-        \code{timeSeries}. If your timeSerie is not a \code{timeSeries}
+        \code{timeSeries}. If your timeSeries is not a \code{timeSeries}
         object, consult the generic function \code{as.timeSeries} to 
         convert your time series.
         }
@@ -63,13 +63,13 @@ portfolioFrontier(data, spec = portfolioSpec(), constraints = "LongOnly",
     
     The range of the frontier is determined from the range of the asset
     returns, and the number of equidistant points in the returns, is
-    calculated from the number of frontier points hold in the specifrication 
+    calculated from the number of frontier points hold in the specification 
     structure. To extract or to modify the number of frontier points
     use the functions \code{getNFrontierPoints} and \code{setNFrontierPoints}.
    
     
     The \code{frontierPortfolio} function returns the properties of 
-    the the efficient frontier as an S4 object of class \code{fPORTFOLIO}.
+    the efficient frontier as an S4 object of class \code{fPORTFOLIO}.
 
 }
 

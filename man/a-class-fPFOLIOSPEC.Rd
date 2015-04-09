@@ -35,7 +35,7 @@
 
 \details{
 
-    \bold{Portfolio Specifcation Structure:}
+    \bold{Portfolio Specification Structure:}
     \cr\cr
     
     The S4 class \code{fPFOLIOSPEC} specifies the portfolio. The slots 

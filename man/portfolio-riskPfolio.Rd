@@ -90,7 +90,7 @@ pfolioHist(x, weights = NULL, alpha = 0.05, range = NULL, details = TRUE, \dots)
         default value, then the range will be selected automatically.
         }
     \item{\dots}{
-        optional arguments to be passet to the function \code{hist}.
+        optional arguments to be passed to the function \code{hist}.
         }
             
 }
@@ -108,7 +108,7 @@ pfolioHist(x, weights = NULL, alpha = 0.05, range = NULL, details = TRUE, \dots)
     are equal to this value is greater or equal to alpha.
     
     \emph{pfolioCVaRplus} or "CVaR+" or the "upper CVaR" are the expected  
-    losses strictly exceeding VaR. This is also also called "Mean 
+    losses strictly exceeding VaR. This is also called "Mean 
     Excess Loss" and "Expected Shortfall".
 
     \emph{pfolioCVaR} is a weighted average of VaR and CVaRplus defined as
@@ -166,7 +166,7 @@ pfolioHist(x, weights = NULL, alpha = 0.05, range = NULL, details = TRUE, \dots)
     \code{pfolioTargetRisk}
     \cr
     returns the total risk (Sigma) or target risk computed from the set 
-    of assets \code{x} and \code{weights} via the formual
+    of assets \code{x} and \code{weights} via the formula
     \code{sqrt(weights \%*\% cov(x) \%*\% weights)}, a numeric value.
     \cr
     

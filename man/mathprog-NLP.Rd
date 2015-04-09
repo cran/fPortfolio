@@ -180,7 +180,7 @@ amplNLPControl(
 
 \value{
     
-    a list of class \code{solver} with the following named ebtries: 
+    a list of class \code{solver} with the following named entries: 
     \code{opt}, 
     \code{solution},
     \code{objective},

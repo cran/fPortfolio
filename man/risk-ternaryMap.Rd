@@ -15,7 +15,7 @@
 
 \description{
   
-    Functions for craeting and plotting ternary maps.
+    Functions for creating and plotting ternary maps.
     
 }
 

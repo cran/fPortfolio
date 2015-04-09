@@ -106,7 +106,7 @@ maxCardConstraints(data, spec=portfolioSpec(), constraints="LongOnly")
     are not included in the portfolio optimization.
     
     \code{"LongOnly"}: This selection is the same as the default setting.
-    Each weight may range between \code{0} ans \code{1}. No group
+    Each weight may range between \code{0} and \code{1}. No group
     constraints and risk budget constraints will be included in the 
     portfolio optimization.
     
@@ -117,7 +117,7 @@ maxCardConstraints(data, spec=portfolioSpec(), constraints="LongOnly")
     
     Lower and upper bounded portfolios may be specified by a vector of
     character strings which describe executable code, setting values to
-    to vectors \code{minW}, \code{maxW}, \code{minsumW}, and \code{maxsumW}.
+    vectors \code{minW}, \code{maxW}, \code{minsumW}, and \code{maxsumW}.
     The individual string elements of the vector have the following form:
     
     \describe{
@@ -142,7 +142,7 @@ maxCardConstraints(data, spec=portfolioSpec(), constraints="LongOnly")
     \emph{Risk Budget Constrained Portfolios:}
     
     By default, risk budgets are not included in the portfolio optimization.
-    Covariance risk budgets have to be added explicitely, and have the 
+    Covariance risk budgets have to be added explicitly, and have the 
     following form:
     
     \describe{

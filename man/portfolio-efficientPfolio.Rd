@@ -42,7 +42,7 @@ maxreturnPortfolio(data, spec = portfolioSpec(), constraints = "LongOnly")
         }
     \item{data}{
         a multivariate time series described by an S4 object of class
-        \code{timeSeries}. If your timeSerie is not a \code{timeSeries}
+        \code{timeSeries}. If your timeSeries is not a \code{timeSeries}
         object, consult the generic function \code{as.timeSeries} to 
         convert your time series.
         }
@@ -65,7 +65,7 @@ maxreturnPortfolio(data, spec = portfolioSpec(), constraints = "LongOnly")
     the efficient portfolio as an S4 object of class \code{fPORTFOLIO}.
 
     
-    \bold{Minumum Risk or Tangency Portfolio:}
+    \bold{Minimum Risk or Tangency Portfolio:}
     
     The function \code{tangencyPortfolio} returns the portfolio with 
     the highest return/risk ratio on the efficient frontier. For the

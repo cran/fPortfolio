@@ -69,7 +69,7 @@ portfolioSpec(
 \details{
 
     To optimize a portfolio of assets we first have to specify it. All
-    settings which specify a portfolio of assets are respresented by a
+    settings which specify a portfolio of assets are represented by a
     S4 class named \code{fPFOLIOSPEC}.
         
     \preformatted{
@@ -128,7 +128,7 @@ portfolioSpec(
     
     \emph{What to optimize?}\cr
     The list entry \code{optimize} from the \code{@model} slot describes 
-    what should be optimized. Two choices are psssible. Either
+    what should be optimized. Two choices are possible. Either
     
     \preformatted{
         \code{"minRisk"}
@@ -191,8 +191,8 @@ portfolioSpec(
         }
         
     where \code{x} is a multivariate time series, \code{spec} optionally 
-    the portfolio specification, if rquired, and \code{...} additional
-    arguments passed to the users code. Note, \code{myEstimator} must
+    the portfolio specification, if required, and \code{...} additional
+    arguments passed to the user's code. Note, \code{myEstimator} must
     a return a named list, with at least the following two entries
     \code{\$mu} and \code{\$Sigma}, which represent estimators for the
     mean and covariance, respectively. 
@@ -220,14 +220,14 @@ portfolioSpec(
     list. It can be used to add tail risk budget constrains to the 
     optimization. In this case a square matrix of the size of the 
     number of assets is expected as list entry, which contains bivariate 
-    tail risk measures, i.e. the tail dependence coefficients estaimated 
+    tail risk measures, i.e. the tail dependence coefficients estimated 
     via a copulae approach.   
     Use the function \code{setType} to modify this selection.
     
     
     The list entry \code{parameters} from the \code{@model} slot is a 
     list with additional parameters used in different situations. It can 
-    be ebhanced by the user if needed. 
+    be enhanced by the user if needed. 
     By default it contains the exponent \code{a=2}, the parameter needed 
         for "LPM" portfolio optimization,
     and it contains the \code{targetAlpha=0.05}, the confidence level
@@ -243,14 +243,14 @@ portfolioSpec(
     default all three are set to \code{NULL}. If this is the case, then 
     it is assumed that an equal weight portfolio should be calculated.
     If only one of the three values is different from \code{NULL} then
-    the following procedure will be startet. 
+    the following procedure will be started. 
     If the weights are specified then it is assumed that a feasible 
         portfolio should be considered.
     If the target return is fixed then it is assumed that the efficient 
         portfolio with the minimal risk will be considered. 
     And finally if the risk is fixed, then the return should be maximized.
     Use the functions \code{setWeights}, \code{setTargetReturn}, and
-    \code{setTargetRisk} to modify this selection.Note, the change in of
+    \code{setTargetRisk} to modify this selection. Note the change in
     the three functions will influence the settings of the other two.
     
     
@@ -259,7 +259,7 @@ portfolioSpec(
     Use the function \code{setRiskFreeRate} to modify this selection.
     
     
-    The number of frontier points reqauired by the calculation of
+    The number of frontier points required by the calculation of
     the \code{portfolioFrontier} is obtained from the value of
     \code{nFrontierPoints=50} hold in the \code{portfolio} slot.
     Its value defaults to 50. It can be changed by the user.
@@ -283,7 +283,7 @@ portfolioSpec(
     The name of the default solver used for optimization can be retrieved
     calling the function \code{getSolver}. The default value for the
     value \code{solver} in the specification is set to \code{NULL} 
-    which means that the best solver availalbe will be autoselected 
+    which means that the best solver available will be auto-selected 
     and used. Before optimization the user can change the setting
     to another solver. Be aware, that a possible personal change will 
     be overwritten by the function \code{setType}, so call 
@@ -291,9 +291,9 @@ portfolioSpec(
     
     
     The logical flag \code{trace} in the slot \code{optim} allows
-    to trace optionally the portfolio optimization process. By 
+    optional tracing of the portfolio optimization process. By 
     default this will not be the case since the default value is 
-    \code{trace=FALSE}. Use the fanction \code{setTrace} to modify
+    \code{trace=FALSE}. Use the function \code{setTrace} to modify
     the selection.
         
     
@@ -307,11 +307,11 @@ portfolioSpec(
     \code{getType} \tab Extracts portfolio type from specification, \cr
     \code{getOptimize} \tab Extracts what to optimize from specification, \cr
     \code{getEstimator} \tab Extracts type of covariance estimator, \cr
-    \code{getTailRisk} \tab Extracts list of tail dependency risk matrixes, \cr
+    \code{getTailRisk} \tab Extracts list of tail dependency risk matrices, \cr
     \code{getParams} \tab Extracts parameters from specification, \cr
     \code{getWeights} \tab Extracts weights from a portfolio object, \cr
     \code{getTargetReturn} \tab Extracts target return from specification, \cr
-    \code{getTargetRisk} \tab Extracts target riks from specification, \cr
+    \code{getTargetRisk} \tab Extracts target risk from specification, \cr
     \code{getAlpha} \tab Extracts target VaR-alpha specification, \cr
     \code{getRiskFreeRate} \tab Extracts risk free rate from specification, \cr
     \code{getNFrontierPoints} \tab Extracts number of frontier points, \cr 

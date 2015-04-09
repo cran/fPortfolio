@@ -66,11 +66,11 @@
     \code{getUnits} \tab Extracts names of assets, \cr
     
     \code{getStatistics} \tab Extracts statistics slot, \cr
-    \code{getMean} \tab Extracs mean vector, \cr
-    \code{getCov} \tab Extracs covariance matrix, \cr
-    \code{getMu} \tab Extracs mu vector, \cr
-    \code{getSigma} \tab Extracs Sigma matrix, \cr
-    \code{getEstimator} \tab Extracs Sigma matrix, \cr
+    \code{getMean} \tab Extracts mean vector, \cr
+    \code{getCov} \tab Extracts covariance matrix, \cr
+    \code{getMu} \tab Extracts mu vector, \cr
+    \code{getSigma} \tab Extracts Sigma matrix, \cr
+    \code{getEstimator} \tab Extracts Sigma matrix, \cr
     
     \code{getTailRisk} \tab Extracts tail risk slot. }  
 }
