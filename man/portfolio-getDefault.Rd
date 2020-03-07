@@ -92,9 +92,6 @@ getWeights(object)
         an object of class \code{fPFOLIODATA}, \code{fPFOLIOSPEC} or
         \code{fPORTFOLIO}.
         }
-    \item{\dots}{
-        optional arguments to be passed.\cr
-        }
 
 }
 

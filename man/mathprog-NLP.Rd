@@ -9,7 +9,6 @@
 \alias{rsolnpNLP} 
 \alias{solnpNLP} 
 \alias{solnpNLPControl} 
-\alias{rsolnp}
 
 \alias{rnlminb2NLP} 
 \alias{nlminb2NLP} 
@@ -60,7 +59,6 @@ solnpNLP(start, objective,
     control=list())    
 solnpNLPControl(
     rho=1, outer.iter=400, inner.iter=800, delta=1e-07, tol=1e-08, trace=0)
-rsolnp
       
 rnlminb2NLP(start, objective, 
     lower=0, upper=1, linCons, funCons, control=list())   

@@ -1,7 +1,7 @@
 Package: fPortfolio
 Title: Rmetrics - Portfolio Selection and Optimization
 Date: 2017-11-12
-Version: 3042.83
+Version: 3042.83.1
 Author: Diethelm Wuertz [aut],
 	Tobias Setz [cre],
 	Yohan Chalabi [ctb],
@@ -20,6 +20,6 @@ LazyData: yes
 License: GPL (>= 2)
 URL: https://www.rmetrics.org
 NeedsCompilation: no
-Packaged: 2017-11-16 17:28:41 UTC; Tobias Setz
+Packaged: 2020-03-07 11:00:10 UTC; hornik
 Repository: CRAN
-Date/Publication: 2017-11-16 21:54:59 UTC
+Date/Publication: 2020-03-07 11:06:21 UTC
