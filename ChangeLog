@@ -2,6 +2,14 @@
 ChangeLog
 Package fPortfolio
 
+2023-04-22  theussl
+
+	* Removed donlp2 solver and the bestDiversification() function (for the time being).
+	* Integrated the Rnlminb2 solver directly into fPortfolio
+	* Changed socp solver to the one in parma package. It is (almost)
+	the same code but the package is hosted on CRAN hence facilitates
+	R CMD check on CRAN.
+
 2015-05-13  wuertz
 
 	* New function pfolioCVaRoptim added. Computes CVaR along

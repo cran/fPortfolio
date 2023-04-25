@@ -51,10 +51,10 @@
     linCons <- list(mat, matLower, matUpper)
     control <- list()
     
-    # donlp2 Solver:
+    # ### REMOVED ### donlp2 Solver:
     # require(Rdonlp2)
-    ans <- rdonlp2NLP(start, objective, lower, upper, linCons)
-    ans
+    ## ans <- rdonlp2NLP(start, objective, lower, upper, linCons)
+    ## ans
     
     # solnp Solver:
     # require(Rsolnp)
@@ -62,7 +62,6 @@
     ans
     
     # nlminb2 Solver:
-    # require(Rnlminb2)
     ans <- rnlminb2NLP(start, objective, lower, upper, linCons)
     ans
   }

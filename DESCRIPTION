@@ -1,25 +1,26 @@
 Package: fPortfolio
 Title: Rmetrics - Portfolio Selection and Optimization
-Date: 2017-11-12
-Version: 3042.83.1
-Author: Diethelm Wuertz [aut],
-	Tobias Setz [cre],
-	Yohan Chalabi [ctb],
-	William Chen [ctb]
-Maintainer: Tobias Setz <tobias.setz@live.com>
-Description: Provides a collection
-	of functions to optimize portfolios and to analyze them from
-    different points of view.
+Date: 2023-04-22
+Version: 4023.84
+Authors@R: c( person("Diethelm", "Wuertz", role = "aut"), person("Tobias", "Setz", role = "aut"),
+              person("Yohan", "Chalabi", role = "aut"), person("William", "Chen", role = "ctb"),
+	      person("Stefan", "Theussl", role = c("aut", "cre"), email = "Stefan.Theussl@R-project.org") )
+Description: A collection of functions to optimize portfolios and to analyze them from different points of view.
 Depends: R (>= 2.15.1), timeDate, timeSeries, fBasics, fAssets
 Imports: fCopulae, robustbase, MASS, Rglpk, slam, Rsolnp, quadprog,
         kernlab, rneos, methods, grDevices, graphics, stats, utils
-Suggests: Rsocp, Rnlminb2, Rdonlp2, Rsymphony, dplR, bcp, fGarch,
-        mvoutlier
-Additional_repositories: http://r-forge.r-project.org/
+Suggests: parma, Rsymphony, dplR, bcp, fGarch, mvoutlier
+Additional_repositories: https://r-forge.r-project.org/
 LazyData: yes
 License: GPL (>= 2)
-URL: https://www.rmetrics.org
+URL: https://r-forge.r-project.org/projects/rmetrics/
 NeedsCompilation: no
-Packaged: 2020-03-07 11:00:10 UTC; hornik
+Packaged: 2023-04-23 20:28:47 UTC; parallels
+Author: Diethelm Wuertz [aut],
+  Tobias Setz [aut],
+  Yohan Chalabi [aut],
+  William Chen [ctb],
+  Stefan Theussl [aut, cre]
+Maintainer: Stefan Theussl <Stefan.Theussl@R-project.org>
 Repository: CRAN
-Date/Publication: 2020-03-07 11:06:21 UTC
+Date/Publication: 2023-04-25 07:50:06 UTC

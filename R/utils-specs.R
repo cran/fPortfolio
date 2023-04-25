@@ -37,11 +37,10 @@
 #                                                                                                                                                        
 # NLP Solver                                                                                     
 # solnpNLP    default     yes  function     x     x    yes     yes        .     solnpNLPControl    .
-# donlp2NLP         .     yes  function     x     x    yes     yes        .    donlp2NLPControl    .
 # nlminb2NLP        .     yes  function     x     x    yes     yes        .   nlminb2NLPControl    .        
 # amplNLP           .  length character     x     x      .       .      yes      amplNLPControl  yes      
+# donlp2NLP   removed     yes  function     x     x    yes     yes        .    donlp2NLPControl    .
 #
-
 
 # AMPL Solver tested: ipopt, donlp2, mosek, ...
 

@@ -38,7 +38,7 @@ feasiblePortfolio <-
 
     # Data and Assets Names:
     Data <- portfolioData(data, spec)
-    if(class(data) == "fPFOLIODATA") data <- getSeries(Data) 
+    if(inherits(data,"fPFOLIODATA")) data <- getSeries(Data) 
     assetsNames <- getUnits(Data)
     
     # Specification:
@@ -54,7 +54,7 @@ feasiblePortfolio <-
     weights <- as.vector(getWeights(spec))
     names(weights) <- assetsNames
 
-    if (class(getSeries(Data)) == "timeSeries") {
+    if (inherits(getSeries(Data),"timeSeries")) {
     
         # Compute Returns:
         targetReturn <- c(
@@ -95,7 +95,7 @@ feasiblePortfolio <-
         names(targetRisk) <- c("Cov", "Sigma", "CVaR", "VaR")
         alpha <- getAlpha(Spec)
         
-    } else if (class(getSeries(Data)) == "logical") {
+    } else if (inherits(getSeries(Data),"logical")) {
        
         # Compute Returns:
         targetReturn <- c(

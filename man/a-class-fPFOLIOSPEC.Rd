@@ -92,7 +92,7 @@
             a list, setting the type of solver to be used for portfolio
             optimization:
             \cr 
-            \code{type=c("quadprog", "Rdonlp2", "lpSolve")} a character
+            \code{type=c("quadprog", "lpSolve")} a character %% REMOVED: "Rdonlp2"
                 string specifying the name of the solver to be used.\cr
             \code{trace=FALSE} a logical flag, should the optimization be
                 traced?

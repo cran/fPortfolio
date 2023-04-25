@@ -19,8 +19,9 @@
 # FUNCTION:                    DESCRIPTION:
 #  rnlminb2NLP                  Rmetrics Interface for NLMINB2 LP solvers 
 #  nlminb2NLP                   Convenience wrapper for NLMINB2 LP solvers
-#  nlminb2Control               NLMINB2 LP control parameter list   
-#  rnlminb2                     Synonyme name for Rnlminb2::nlminb2 function
+#  nlminb2Control               NLMINB2 LP control parameter list
+#  nlminb2                      Code imported from Rnlminb2 on R-Forge
+#  rnlminb2                     Synonym for nlminb2 function
 ################################################################################
 
 
@@ -261,13 +262,237 @@ nlminb2NLP <-
 
 ################################################################################
 
+## Description: 
+##     NLMINB2 is an interior point nonlinear constrained programming 
+##     problem interface written by Dietgelm Wuertz. The version here 
+##     calls the R function nlminb from R's base environment. 
+## Author: 
+##     Douglas Bates and Deepayan Sarkar have written the nlminb R Port.
+##     David M. Gay has written the underlying Fortran code.
+##     Diethelm Wuertz has added nonlinear constraints functionality nlminb2.
+##     To facilitate CRAN checking, Stefan Theussl integrated the code into
+##     fPortfolio.
+
 
 rnlminb2 <- function(...) {
-  Rnlminb2::nlminb2(...)
+ fPortfolio::nlminb2(...)
+}
+
+nlminb2 <- function(
+    start, objective, 
+    
+    eqFun = NULL, 
+    leqFun = NULL,
+     
+    lower = -Inf, 
+    upper = Inf,
+    
+    gradient = NULL, 
+    hessian = NULL, 
+    
+    control = list(),
+    
+    env = .GlobalEnv)
+{
+    # A function implemented by Diethelm Wuertz
+    
+    # Description:
+    #   Nonlinear programming with nonlinear constraints
+    
+    # Details:
+    #                        min f(x)
+    #
+    #                 lower_i < x_i < upper_i
+    #    s/t                h_i(x)  = 0
+    #                       g_i(x) <= 0
+    
+    # Arguments:
+    #   start - numeric vector of start values
+    #   objective - objective function to be minimized f(x)
+    #   eqFun - equal constraint functions h_i(x) = 0
+    #   leqFun - less equal constraint functions g_i(x) <= 0
+    #   lower, upper - lower and upper bounds
+    #   gradient - optional gradient of f(x)
+    #   hessian - optional hessian of f(x)
+    #   scale - control parameter
+    #   control - control list
+    #       eval.max - maximum number of evaluations (200)
+    #       iter.max - maximum number of iterations (150) 
+    #       trace - value of the objective function and the parameters 
+    #           is printed every trace'th iteration (0)
+    #       abs.tol - absolute tolerance (1e-20)
+    #       rel.tol - relative tolerance (1e-10) 
+    #       x.tol - X tolerance (1.5e-8)
+    #       step.min - minimum step size (2.2e-14)
+    
+    # Todo:
+    #   R, N and alpha should become part of the control list.
+   
+    # FUNCTION:
+    
+    # Debug:
+    DEBUG = FALSE
+    
+    # Control List:
+    ctrl = nlminb2Control()
+    if (length(control) > 0)
+        for (name in names(control)) ctrl[name] = control[name]
+    control = ctrl
+    
+    # Arg Functions:
+    if (DEBUG) {
+        print(eqFun)
+        print(eqFun(start))
+        print(leqFun)
+        print(leqFun(start))
+    }
+    
+    # Composed Objective Function:
+    if (is.null(eqFun(start))) {
+        type = "leq"
+        fun <- function(x, r) { 
+            objective(x) - 
+                r * sum(.Log(-leqFun(x))) }  
+    } else if (is.null(leqFun(start))) {
+        type = "eq"
+        fun <- function(x, r) { 
+            objective(x) +
+                sum((eqFun(x))^2 / r) } 
+    } else {
+        type = "both"
+        fun <- function(x, r) { 
+            objective(x) +
+                sum((eqFun(x))^2 / r) - 
+                r * sum(.Log(-leqFun(x))) }  
+    }
+    
+    # Compute in global environment:
+    fun2 = function(x, r) {
+        return(as.double(eval(fun(x, r), env)))
+    }
+       
+    # Debug: 
+    if (DEBUG) {
+        print(fun)
+        print(fun(start, 1))
+    }
+       
+    # Minimization:
+    steps.tol <- control$steps.tol
+    R <- control$R
+    beta <- control$beta
+    scale <- control$scale
+    
+    trace = control$trace
+    if (trace > 0) TRACE = TRUE else TRACE = FALSE
+    
+    control2 = control
+    control2[["R"]] <- NULL
+    control2[["beta"]] <- NULL
+    control2[["steps.max"]] <- NULL
+    control2[["steps.tol"]] <- NULL
+    control2[["scale"]] <- NULL
+    
+    counts <- 0
+    test <- 0
+    while (counts < control$steps.max && test == 0) {
+        counts = counts + 1
+        ans = nlminb(
+            start = start, objective = fun2, 
+            gradient = gradient, hessian = hessian, 
+            scale = scale, control = control2, lower = lower, upper = upper,
+            r = R)
+        start = ans$par
+        tol = abs((fun(ans$par, R)-objective(ans$par))/objective(ans$par))
+        if (!is.na(tol)) 
+            if (tol < steps.tol) test = 1
+        if (TRACE) {
+            print(paste("counts:", counts, "R:", R))
+            print(paste("   ", ans$convergence))
+            print(paste("   ", ans$message))
+            print(ans$par)
+            print(fun(ans$par, R))
+            print(objective(ans$par))
+            print(tol)
+        }
+        R = beta * R
+    } 
+    
+    if (TRACE) {
+        print(paste("type:", type))
+        cat("\n\n") 
+    } 
+    
+    # Return Value:
+    ans
+} 
+
+
+# ------------------------------------------------------------------------------
+
+
+.Log <-
+function(x) 
+{
+    # Description:
+    #   Returns log taking care of negative values
+    
+    # FUNCTION:
+    
+    # Check for negative values:
+    x[x < 0] <- 0
+    
+    # Return Value:
+    log(x)
 }
 
 
 ################################################################################
+
+
+nlminb2Control <- 
+function(
+    eval.max = 500, 
+    iter.max = 400,
+    trace = 0,
+    abs.tol = 1e-20, 
+    rel.tol = 1e-10,
+    x.tol = 1.5e-8, 
+    step.min = 2.2e-14,
+    scale = 1,
+    R = 1,
+    beta = 0.01,
+    steps.max = 10,
+    steps.tol = 1e-6)         
+{
+    # A function implemented by Diethelm Wuertz
+    
+    # Description:
+    #   Returns Control list
+    
+    # Arguments:
+    #   none
+    
+    # FUNCTION:
+    
+    # Control list:
+    optim <- list(
+        eval.max = eval.max, 
+        iter.max = iter.max,
+        trace = trace,
+        abs.tol = abs.tol, 
+        rel.tol = rel.tol,
+        x.tol = x.tol, 
+        step.min = step.min,
+        scale = scale,
+        R = R,
+        beta = beta,
+        steps.max = steps.max,
+        steps.tol = steps.tol)
+        
+   # Return Value:
+   optim
+}
 
 
 nlminb2NLPControl <-

@@ -17,7 +17,7 @@
 
 ################################################################################
 # FUNCTION:                 DESCRIPTION:
-#  solveRsocp                Portfolio interface to solver Rsocp
+#  solveRsocp                Portfolio interface to solver Rsocp (in parma)
 #  .rsocpArguments           Returns arguments for solver
 #  .rsocp                    Wrapper to solver function
 #  .rsocpControl             Returns default controls for solver
@@ -28,7 +28,7 @@ solveRsocp <-
   function(data, spec, constraints)
   {
     # Description:
-    #   Portfolio interface to solver Rsocp
+    #   Portfolio interface to solver Rsocp (ported to and currently located in package parma)
     
     # Example:
     #   ans = solveRquadprog(.lppData, .mvSpec, "LongOnly")[-3]
@@ -109,7 +109,7 @@ solveRsocp <-
     d3 <- c(rep(0, nAssets), rep(-1, nAssets))                # x[i] > 0
     
     # A - Cone Constraints:
-    A1 <- Rsocp::.SqrtMatrix(Sigma)
+    A1 <- .SqrtMatrix(Sigma)
     A2 <- matrix(0, ncol = nAssets)
     A3 <- matrix(0, nrow = nrow(C3), ncol = nAssets)
     
@@ -159,7 +159,7 @@ solveRsocp <-
     # FUNCTION
     
     # Solve Portfolio:
-    optim <- Rsocp::socp(f, A, b, C, d, N, x, z, w, control)
+    optim <- parma::Socp(f, A, b, C, d, N, x, z, w, control)
     
     # Extract Weights:
     weights = .checkWeights(optim$x)
@@ -209,3 +209,35 @@ solveRsocp <-
 
 ################################################################################
 
+## Imported from package Rsocp
+.SqrtMatrix <-
+function(x)
+{
+    # A function implemented by Diethelm Wuertz
+
+    # Description:
+    #   Square Root of a quadratic Matrix:
+
+    # Example:
+    #   A = matrix(c(1,.2,.2,.2,1,.2,.2,.2,1), ncol = 3)
+    #   round(Sqrt(A) %*% Sqrt(A) - A, digits = 12)
+
+    # FUNCTION:
+
+    # Check if matrix is square:
+    stopifnot(NCOL(x) == NROW(x))
+
+    # One-dimensional ?
+    if (NCOL(x) == 1) return(sqrt(as.vector(x)))
+
+    # Square Root of a matrix:
+    e <- eigen(x)
+    V <- e$vectors
+    ans <- V %*% diag(sqrt(e$values)) %*% t(V)
+
+    # Return Value:
+    ans
+}
+
+
+################################################################################

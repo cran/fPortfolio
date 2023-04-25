@@ -69,7 +69,7 @@ tangencyStrategy <-
     strategyPortfolio <- try(tangencyPortfolio(data, spec, constraints))
     
     # If tangency portfolio doesn't exist take the minimum variance portfolio:
-    if (class(strategyPortfolio) == "try-error") {
+    if (inherits(strategyPortfolio,"try-error")) {
         strategyPortfolio <- minvariancePortfolio(data, spec, constraints)
     }
     

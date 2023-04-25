@@ -83,11 +83,11 @@ setMethod("show", "fPORTFOLIO",
     targetReturn <- matrix(getTargetReturn(object@portfolio), ncol = 2)
     targetRisk <- matrix(getTargetRisk(object@portfolio), ncol = 4)
     target <- round(cbind(targetReturn, targetRisk), digits = 4)
-    if (class(getSeries(object)) == "logical") {
+    if (inherits(getSeries(object),"logical")) {
         cat("\nTarget Return and Risk:\n")
         target = target[, c(1, 3), drop = FALSE]
         colnames(target) = c("mean", "Cov")
-    } else if( class(getSeries(object)) == "timeSeries") {
+    } else if(inherits(getSeries(object),"timeSeries")) {
         cat("\nTarget Returns and Risks:\n")
         colnames(target) = c("mean", "mu", "Cov", "Sigma", "CVaR", "VaR")
     }

@@ -17,9 +17,9 @@
 
 ################################################################################
 # FUNCTION:
-#  require(Rdonlp2)
 #  require(Rsolnp)
-#  require(Rnlminb2)
+#  ### REMOVED ### require(Rnlminb2)
+#  ### REMOVED ### require(Rdonlp2)
 # FUNCTION:  
 #  .powellTestNLP
 #  .wright4TestNLP
@@ -51,17 +51,19 @@
       function(x) x[1]*x[1]*x[1]+x[2]*x[2]*x[2])
     eqFun.bound <- c(10, 0, -1)
     
-    ans.donlp = donlp2NLP(start, fun, 
-                          eqFun = eqFun, eqFun.bound = eqFun.bound) 
+    ## ans.donlp = donlp2NLP(start, fun, 
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound) 
     ans.solnp = solnpNLP(start, fun, 
                          eqFun = eqFun, eqFun.bound = eqFun.bound)
     ans.nlminb = nlminb2NLP(start, fun, 
                             eqFun = eqFun, eqFun.bound = eqFun.bound)
     
     result.par = round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 3)
+        ##ans.donlp$solution,
+        ans.solnp$solution, ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)   
   }
 
@@ -89,17 +91,19 @@
       function(x) x[1]*x[5] ) 
     eqFun.bound = c(2+3*sqrt(2), -2+2*sqrt(2), 2)
     
-    ans.donlp = donlp2NLP(start, fun, 
-                          eqFun = eqFun, eqFun.bound = eqFun.bound)
+    ## ans.donlp = donlp2NLP(start, fun, 
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound)
     ans.solnp = solnpNLP(start, fun, 
                          eqFun = eqFun, eqFun.bound = eqFun.bound) 
     ans.nlminb = nlminb2NLP(start, fun, 
                             eqFun = eqFun, eqFun.bound = eqFun.bound)
     
     result.par = round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 3)
+        ##ans.donlp$solution,
+        ans.solnp$solution, ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)   
   }
 
@@ -124,9 +128,9 @@
       function(x) 4*x[1]*x[2]+2*x[2]*x[3]+2*x[3]*x[1] )
     eqFun.bound = 100
     
-    ans.donlp = donlp2NLP(start, fun, 
-                          par.lower = par.lower, par.upper = par.upper, 
-                          eqFun = eqFun, eqFun.bound = eqFun.bound)  
+    ## ans.donlp = donlp2NLP(start, fun, 
+    ##                       par.lower = par.lower, par.upper = par.upper, 
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound)  
     ans.solnp = solnpNLP(start, fun, 
                          par.lower = par.lower, par.upper = par.upper, 
                          eqFun = eqFun, eqFun.bound = eqFun.bound)        
@@ -135,9 +139,11 @@
                             eqFun = eqFun, eqFun.bound = eqFun.bound)  
     
     result.par = round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 3)
+        ##ans.donlp$solution,
+        ans.solnp$solution, ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun) 
   }
 
@@ -165,9 +171,9 @@
     ineqFun.lower = c(-100,  -2,   5)
     ineqFun.upper = c(  20, 100, 100)
     
-    ans.donlp = donlp2NLP(start, fun, 
-                          ineqFun = ineqFun, 
-                          ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)  
+    ## ans.donlp = donlp2NLP(start, fun, 
+    ##                       ineqFun = ineqFun, 
+    ##                       ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)  
     ans.solnp = solnpNLP(start, fun, 
                          ineqFun = ineqFun, 
                          ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)   
@@ -176,9 +182,11 @@
                             ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)
     
     result.par = round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 3)
+        ##ans.donlp$solution,
+        ans.solnp$solution, ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)    
   }
 
@@ -215,11 +223,11 @@
     ineqFun.lower = c(  0.99,   0.99,  0.9,   0.99)
     ineqFun.upper = c(100/99, 100/99, 10/9, 100/99)
     
-    ans.donlp = donlp2NLP(start, fun, 
-                          par.lower = par.lower, par.upper = par.upper,
-                          eqFun = eqFun, eqFun.bound = eqFun.bound,
-                          ineqFun = ineqFun, 
-                          ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)    
+    ## ans.donlp = donlp2NLP(start, fun, 
+    ##                       par.lower = par.lower, par.upper = par.upper,
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound,
+    ##                       ineqFun = ineqFun, 
+    ##                       ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)    
     ans.solnp = solnpNLP(start, fun, 
                          par.lower = par.lower, par.upper = par.upper,
                          eqFun = eqFun, eqFun.bound = eqFun.bound,
@@ -232,9 +240,11 @@
                             ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)
     
     result.par = round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 3)
+        ##ans.donlp$solution,
+        ans.solnp$solution, ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)     
   }
 
@@ -264,9 +274,9 @@
       function(x) sum(x) )
     eqFun.bound <- 10
     
-    ans.donlp = donlp2NLP(start, fun, 
-                          par.lower = par.lower,  
-                          eqFun = eqFun, eqFun.bound = eqFun.bound)     
+    ## ans.donlp = donlp2NLP(start, fun, 
+    ##                       par.lower = par.lower,  
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound)     
     ans.solnp = solnpNLP(start, fun, 
                          par.lower = par.lower,  
                          eqFun = eqFun, eqFun.bound = eqFun.bound)    
@@ -275,9 +285,11 @@
                             eqFun = eqFun, eqFun.bound = eqFun.bound)   
     
     result.par = round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 3)
+        ##ans.donlp$solution,
+        ans.solnp$solution, ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)        
   }
 
@@ -304,9 +316,9 @@
     ineqFun.lower <- rep(   0, 3)
     ineqFun.upper <- rep(10, 3)
     
-    ans.donlp = donlp2NLP(start, fun,  
-                          ineqFun = ineqFun, 
-                          ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)     
+    ## ans.donlp = donlp2NLP(start, fun,  
+    ##                       ineqFun = ineqFun, 
+    ##                       ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)     
     ans.solnp = solnpNLP(start, fun,  
                          ineqFun = ineqFun, 
                          ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)     
@@ -315,9 +327,11 @@
                             ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)     
     
     result.par = round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 3)
+        ##ans.donlp$solution,
+        ans.solnp$solution, ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)   
   }
 
@@ -352,30 +366,32 @@
       function(x) sum(x) )
     eqFun.bound = 1
     
-    ans.donlp <- donlp2NLP(start, fun,  
-                           par.lower = par.lower, par.upper = par.upper,
-                           eqFun = eqFun, eqFun.bound = eqFun.bound ) 
+    ## ans.donlp <- donlp2NLP(start, fun,  
+    ##                        par.lower = par.lower, par.upper = par.upper,
+    ##                        eqFun = eqFun, eqFun.bound = eqFun.bound ) 
     ans.solnp <- solnpNLP(start, fun,  
                           par.lower = par.lower, par.upper = par.upper,
                           eqFun = eqFun, eqFun.bound = eqFun.bound)      
-    ans.nlminb <- Rnlminb2::nlminb2NLP(start, fun,  
+    ans.nlminb <- fPortfolio::nlminb2NLP(start, fun,  
                                        par.lower = par.lower, par.upper = par.upper,
                                        eqFun = eqFun, eqFun.bound = eqFun.bound)  
     
     result.par = round(rbind(
-      ans.donlp$solution, 
+      ##ans.donlp$solution, 
       ans.solnp$solution, 
       ans.nlminb$solution), 3)
     result.fun = c(
-      fun(ans.donlp$solution), 
+      ##fun(ans.donlp$solution), 
       fun(ans.solnp$solution), 
       fun(ans.nlminb$solution))
     cbind(result.par, result.fun)     
     
     result.par <- 100*round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 4)
+                          ##ans.donlp$solution,
+                          ans.solnp$solution, ans.nlminb$solution), 4)
     result.fun <- c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)  
   }
 
@@ -421,9 +437,9 @@
       function(x) sum(x) )
     eqFun.bound = 1
     
-    ans.donlp = donlp2NLP(start, fun,  
-                          par.lower = par.lower, par.upper = par.upper,
-                          eqFun = eqFun, eqFun.bound = eqFun.bound) 
+    ## ans.donlp = donlp2NLP(start, fun,  
+    ##                       par.lower = par.lower, par.upper = par.upper,
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound) 
     ans.solnp = solnpNLP(start, fun,  
                          par.lower = par.lower, par.upper = par.upper,
                          eqFun = eqFun, eqFun.bound = eqFun.bound)   
@@ -432,9 +448,11 @@
                             eqFun = eqFun, eqFun.bound = eqFun.bound)    
     
     result.par = 100*round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 4)
+                         ##ans.donlp$solution,
+                         ans.solnp$solution, ans.nlminb$solution), 4)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)  
   }
 
@@ -472,9 +490,9 @@
       function(x) (Mean %*% x)[[1]] )
     eqFun.bound = c(1, targetReturn)
     
-    ans.donlp = donlp2NLP(start, objective, 
-                          par.lower = par.lower, par.upper = par.upper,
-                          eqFun = eqFun, eqFun.bound = eqFun.bound)
+    ## ans.donlp = donlp2NLP(start, objective, 
+    ##                       par.lower = par.lower, par.upper = par.upper,
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound)
     ans.solnp = solnpNLP(start, objective, 
                          par.lower = par.lower, par.upper = par.upper,
                          eqFun = eqFun, eqFun.bound = eqFun.bound)
@@ -483,9 +501,11 @@
                             eqFun = eqFun, eqFun.bound = eqFun.bound)
     
     result.par <- 100*round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 4)
+                          ##ans.donlp$solution,
+                          ans.solnp$solution, ans.nlminb$solution), 4)
     result.fun <- c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun)  
   }
 
@@ -536,11 +556,11 @@
     ineqFun.lower <- c( 0.3, 0.0)
     ineqFun.upper <- c( 1.0, 0.6)
     
-    ans.donlp = donlp2NLP(start, fun, 
-                          par.lower = par.lower, par.upper = par.upper,
-                          eqFun = eqFun, eqFun.bound = eqFun.bound,
-                          ineqFun = ineqFun, 
-                          ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)
+    ## ans.donlp = donlp2NLP(start, fun, 
+    ##                       par.lower = par.lower, par.upper = par.upper,
+    ##                       eqFun = eqFun, eqFun.bound = eqFun.bound,
+    ##                       ineqFun = ineqFun, 
+    ##                       ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)
     ans.solnp = solnpNLP(start, fun, 
                          par.lower = par.lower, par.upper = par.upper,
                          eqFun = eqFun, eqFun.bound = eqFun.bound,
@@ -553,9 +573,11 @@
                             ineqFun.lower = ineqFun.lower, ineqFun.upper = ineqFun.upper)
     
     result.par = 100*round(rbind(
-      ans.donlp$solution, ans.solnp$solution, ans.nlminb$solution), 4)
+                         ##ans.donlp$solution,
+                         ans.solnp$solution, ans.nlminb$solution), 4)
     result.fun = c(
-      fun(ans.donlp$solution), fun(ans.solnp$solution), fun(ans.nlminb$solution))
+        ##fun(ans.donlp$solution),
+        fun(ans.solnp$solution), fun(ans.nlminb$solution))
     cbind(result.par, result.fun) 
   }
 

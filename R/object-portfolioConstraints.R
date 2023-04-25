@@ -61,7 +61,7 @@ function(data, spec=portfolioSpec(), constraints="LongOnly", ...)
     # FUNCTION:
 
     # Already done ...
-    if (class(constraints) == "fPFOLIOCON") return(constraints)
+    if (inherits(constraints,"fPFOLIOCON")) return(constraints)
 
     # Missing target Return ...
     if (is.null(getTargetReturn(spec))) setTargetReturn(spec) <- NA
@@ -173,7 +173,7 @@ function(data, spec=portfolioSpec(), constraints="LongOnly")
 
     # Settings:
     Data <- portfolioData(data, spec)
-    if (class(data) == "fPFOLIODATA") data <- getSeries(Data)
+    if (inherits(data,"fPFOLIODATA")) data <- getSeries(Data)
     nAssets <- getNAssets(Data)
     assetsNames <- getUnits(Data)
 
@@ -239,7 +239,7 @@ function(data, spec=portfolioSpec(), constraints="LongOnly")
 
     # Settings:
     Data <- portfolioData(data, spec)
-    if (class(data) == "fPFOLIODATA") data <- getSeries(Data)
+    if (inherits(data,"fPFOLIODATA")) data <- getSeries(Data)
     nAssets <- getNAssets(Data)
     assetsNames <- getUnits(Data)
 
@@ -307,7 +307,7 @@ function(data, spec=portfolioSpec(), constraints="LongOnly")
 
     # Get Statistics:
     Data <- portfolioData(data, spec)
-    if (class(data) == "fPFOLIODATA") data <- getSeries(Data)
+    if (inherits(data,"fPFOLIODATA")) data <- getSeries(Data)
     targetReturn <- getTargetReturn(spec)[1]
     if (is.null(targetReturn)) {
         targetReturn = NA
@@ -546,7 +546,7 @@ function(data, spec=portfolioSpec(), constraints="LongOnly")
 
     # Create Data Object:
     Data <- portfolioData(data, spec)
-    if (class(data) == "fPFOLIODATA") data <- getSeries(Data)
+    if (inherits(data,"fPFOLIODATA")) data <- getSeries(Data)
 
     # Get Specifications:
     nAssets <- getNAssets(Data)
@@ -593,7 +593,7 @@ function(data, spec=portfolioSpec(), constraints="LongOnly")
 
     # Create Data Object:
     Data <- portfolioData(data, spec)
-    if (class(data) == "fPFOLIODATA") data <- getSeries(Data)
+    if (inherits(data,"fPFOLIODATA")) data <- getSeries(Data)
 
     # Get Specifications:
     N <- nAssets <- getNAssets(Data)

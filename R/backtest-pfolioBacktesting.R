@@ -67,18 +67,18 @@ portfolioBacktesting <-
     # FUNCTION:
     
     # Data:
-    if (class(data) == "fPFOLIODATA") {
+    if (inherits(data,"fPFOLIODATA")) {
       Data <- data
       data <- getSeries(data)
-    } else if (class(data) == "timeSeries") {
+    } else if (inherits(data,"timeSeries")) {
       Data <- portfolioData(data, spec)
     }
     
     # Constraints:
-    if (class(constraints) == "fPFOLIOSPEC") {
+    if (inherits(constraints,"fPFOLIOSPEC")) {
       Constraints <- constraints
       constraints <- Constraints@stringConstraints
-    } else if (class(constraints) == "character") {
+    } else if (inherits(constraints,"character")) {
       Constraints <- portfolioConstraints(data, spec, constraints)
     }
     

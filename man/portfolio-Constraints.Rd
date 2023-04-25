@@ -75,7 +75,7 @@ maxCardConstraints(data, spec=portfolioSpec(), constraints="LongOnly")
         \code{portfolioSpec}.
         }
     \item{\dots}{
-        arguments passed to the function \code{.setRdonlp2Constraints}.
+        %%arguments passed to the function \code{.setRdonlp2Constraints}.
         For internal use only.
         }
 

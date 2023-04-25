@@ -514,7 +514,12 @@ backtestDrawdownPlot <-
     weights <- as.timeSeries(object$smoothWeights)
     
     # Align Data:
-    Data <- .align.timeSeries(data)/100
+    ## 2022-10-11 GNB: was: Data <- .align.timeSeries(data)/100
+    ##   assuming that data is a 'timeSeries' objec, which seems it is,
+    ##   but I was not able to verify this since there are no examples with it
+    ##   and the documentation is unclear (or rather, I got lost).
+    ##   Note: the timeSeries method for align() is '.align.timeSeries'
+    Data <- align(data)/100
     
     # Time Axis:
     if (is.null(at)) at <- paste(unique(atoms(time(data))[,1]), "12-31", sep="-")

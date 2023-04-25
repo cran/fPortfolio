@@ -1,10 +1,10 @@
 \name{mathprog-NLP}
 
 
-\alias{rdonlp2NLP} 
-\alias{donlp2NLP} 
-\alias{donlp2NLPControl} 
-\alias{rdonlp2}
+%\alias{rdonlp2NLP} 
+%\alias{donlp2NLP} 
+%\alias{donlp2NLPControl} 
+%\alias{rdonlp2}
 
 \alias{rsolnpNLP} 
 \alias{solnpNLP} 
@@ -31,22 +31,22 @@
 
 
 \usage{
-rdonlp2NLP(start, objective, 
-    lower=0, upper=1, linCons, funCons, control=list())   
-donlp2NLP(start, objective, 
-    par.lower=NULL, par.upper=NULL,
-    eqA=NULL, eqA.bound=NULL,
-    ineqA=NULL, ineqA.lower=NULL, ineqA.upper=NULL,
-    eqFun=list(), eqFun.bound=NULL,
-    ineqFun=list(), ineqFun.lower=NULL, ineqFun.upper=NULL,
-    control=list())    
-donlp2NLPControl(
-    iterma=4000, nstep=20, fnscale=1, report=FALSE, rep.freq=1, 
-    tau0=1, tau=0.1, del0=1, epsx=1e-05, delmin=0.1 * del0, 
-    epsdif=1e-08, nreset.multiplier=1, difftype=3, epsfcn=1e-16, 
-    taubnd=1, hessian=FALSE, te0=TRUE, te1=FALSE, te2=FALSE, 
-    te3=FALSE, silent=TRUE, intakt=TRUE) 
-rdonlp2
+%% rdonlp2NLP(start, objective, 
+%%     lower=0, upper=1, linCons, funCons, control=list())   
+%% donlp2NLP(start, objective, 
+%%     par.lower=NULL, par.upper=NULL,
+%%     eqA=NULL, eqA.bound=NULL,
+%%     ineqA=NULL, ineqA.lower=NULL, ineqA.upper=NULL,
+%%     eqFun=list(), eqFun.bound=NULL,
+%%     ineqFun=list(), ineqFun.lower=NULL, ineqFun.upper=NULL,
+%%     control=list())    
+%% donlp2NLPControl(
+%%     iterma=4000, nstep=20, fnscale=1, report=FALSE, rep.freq=1, 
+%%     tau0=1, tau=0.1, del0=1, epsx=1e-05, delmin=0.1 * del0, 
+%%     epsdif=1e-08, nreset.multiplier=1, difftype=3, epsfcn=1e-16, 
+%%     taubnd=1, hessian=FALSE, te0=TRUE, te1=FALSE, te2=FALSE, 
+%%     te3=FALSE, silent=TRUE, intakt=TRUE) 
+%% rdonlp2
 
 rsolnpNLP(start, objective, 
     lower=0, upper=1, linCons, funCons, control=list())   
@@ -128,29 +128,30 @@ amplNLPControl(
     %\item{project}{...}
     %\item{inf}{...}
     %\item{trace}{...}
-    
-    \item{iterma}{4000}
-    \item{nstep}{20}
-    \item{fnscale}{1}
-    \item{report}{FALSE}
-    \item{rep.freq}{1}
-    \item{tau0}{1}
-    \item{tau}{0.1}
-    \item{del0}{1}
-    \item{epsx}{1e-5}
-    \item{delmin}{0.1 * del0}
-    \item{epsdif}{1e-8}
-    \item{nreset.multiplier}{1}
-    \item{difftype}{3}
-    \item{epsfcn}{1e-16}
-    \item{taubnd}{1}
-    \item{hessian}{FALSE}
-    \item{te0}{TRUE}
-    \item{te1}{FALSE}
-    \item{te2}{FALSE}
-    \item{te3}{FALSE}
-    \item{silent}{TRUE}
-    \item{intakt}{TRUE}
+
+    %% donlp2 items:
+    %% \item{iterma}{4000}
+    %% \item{nstep}{20}
+    %% \item{fnscale}{1}
+    %% \item{report}{FALSE}
+    %% \item{rep.freq}{1}
+    %% \item{tau0}{1}
+    %% \item{tau}{0.1}
+    %% \item{del0}{1}
+    %% \item{epsx}{1e-5}
+    %% \item{delmin}{0.1 * del0}
+    %% \item{epsdif}{1e-8}
+    %% \item{nreset.multiplier}{1}
+    %% \item{difftype}{3}
+    %% \item{epsfcn}{1e-16}
+    %% \item{taubnd}{1}
+    %% \item{hessian}{FALSE}
+    %% \item{te0}{TRUE}
+    %% \item{te1}{FALSE}
+    %% \item{te2}{FALSE}
+    %% \item{te3}{FALSE}
+    %% \item{silent}{TRUE}
+    %% \item{intakt}{TRUE}
     
     \item{rho}{1}
     \item{outer.iter}{400}

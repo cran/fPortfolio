@@ -46,10 +46,10 @@ portfolioData <-
     if (is(data, "fPFOLIODATA")) return(data)
 
     # Data, if we have a "timeSeries" or a "list":
-    if (class(data) == "timeSeries") {
+    if (inherits(data,"timeSeries")) {
         series = data = sort(data)
         assetsNames = colnames(data)
-    } else if (class(data) == "list") {
+    } else if (inherits(data,"list")) {
         series = rep(NA, times = length(data[[1]]))
         assetsNames = names(series) = names(data[[1]])
     }
@@ -62,7 +62,7 @@ portfolioData <-
         names = assetsNames)
         
     # Statistics:
-    if (class(data) == "timeSeries") {
+    if (inherits(data,"timeSeries")) {
         estimator = getEstimator(spec)
         estimatorFun = match.fun(estimator)
         muSigma = estimatorFun(data, spec)
@@ -74,7 +74,7 @@ portfolioData <-
             estimator = estimator,
             mu = muSigma$mu,
             Sigma = muSigma$Sigma)
-    } else if (class(data) == "list") {
+    } else if (inherits(data,"list")) {
         .statistics = list(
             mean = data[[1]],
             Cov = data[[2]],

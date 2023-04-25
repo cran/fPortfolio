@@ -297,19 +297,12 @@ mathprogNLP-ampl.R
     amplNLP                       Convenience wrapper for AMPL LP solvers
     amplControl                   AMPL LP control parameter list   
                                   
-mathprogNLP-donlp2.R              
-                                  
-    rdonlp2NLP                    Rmetrics Interface for DONLP2 LP solvers 
-    donlp2NLP                     Convenience wrapper for DONLP2 LP solvers
-    donlp2NLPControl              DONLP2 LP control parameter list         
-    rdonlp2                       Synonyme name for Rdonlp2::donlp2 function
-                                  
 mathprogNLP-nlminb2.R             
                                   
     rnlminb2NLP                   Rmetrics Interface for NLMINB2 LP solvers 
     nlminb2NLP                    Convenience wrapper for NLMINB2 LP solvers
     nlminb2Control                NLMINB2 LP control parameter list         
-    rnlminb2                      Synonyme name for Rdonlp2::nlminb2 function     
+    rnlminb2                      Synonyme name for Rnlminb2::nlminb2 function     
                                   
 mathprogNLP-solnp.R               
                                   
@@ -782,7 +775,7 @@ risk-ternaryMap.R
 
 solve-Rampl.R
                                        
-    solveRdemoAMPL                Demo AMPL solver function for a MV Long Only Portfolio                                         solve-Rdonlp2.R
+    solveRdemoAMPL                Demo AMPL solver function for a MV Long Only Portfolio                                    
     demoModelAMPL                 Creates AMPL model file for a MV Long Only Portfolio
     demoDataAMPL                  Creates AMPL data file for a MV Long Only Portfolio 
     demoRunAMPL                   Creates AMPL run file for a MV Long Only Portfolio 
@@ -791,13 +784,6 @@ solve-RamplCVaR.R
                                   
     solveRamplCVAR1               Demo AMPL solver function for a CVAR Portfolio    
                                   
-solve-Rdonlp2.R                   
-                                  
-    solveRdonlp2                  Portfolio interface to solver Rdonlp2
-    .rdonlp2Arguments             Returns arguments for solver
-    .rdonlp2                      Wrapper to solver function
-    .rdonlp2Control               Returns default controls for solver
-
 solve-Rglpk.R
 
     solveRglpk                    Portfolio interface to solver Rglpk

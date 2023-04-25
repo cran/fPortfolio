@@ -10,7 +10,7 @@
 \alias{solveRipop}
 \alias{solveRampl.MV}
 \alias{solveRsocp}
-\alias{solveRdonlp2}
+%%\alias{solveRdonlp2}
 \alias{solveRsolnp}
 
 
@@ -37,7 +37,7 @@ solveRampl.MV(data, spec, constraints)
 
 solveRsocp(data, spec, constraints)
 
-solveRdonlp2(data, spec, constraints)
+%%solveRdonlp2(data, spec, constraints)
 solveRsolnp(data, spec, constraints)
 }
 

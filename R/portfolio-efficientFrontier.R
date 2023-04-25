@@ -71,7 +71,7 @@ function(data, spec = portfolioSpec(), constraints = "LongOnly",
         setTargetReturn(spec) = targetReturns[IDX]
         # Optimize Efficient Portfolio:
         ans = try(efficientPortfolio(Data, spec, constraints), silent = TRUE)
-        if (class(ans) == "try-error") {
+        if (inherits(ans,"try-error")) {
             Status = 1
         } else {
             portfolio = ans
@@ -100,7 +100,7 @@ function(data, spec = portfolioSpec(), constraints = "LongOnly",
                 setTargetReturn(spec) = targetReturns[IDX]
                 # Optimize Efficient Portfolio:
                 ans = try(efficientPortfolio(Data, spec, constraints), silent = TRUE)
-                if (class(ans) == "try-error") {
+                if (inherits(ans,"try-error")) {
                     Status = 1
                 } else {
                     portfolio = ans
@@ -234,7 +234,7 @@ function(data, spec = portfolioSpec(), constraints = "LongOnly",
         setTargetReturn(spec) = targetReturns[IDX]
         # Optimize Efficient Portfolio:
         ans = try(efficientPortfolio(Data, spec, constraints), silent = TRUE)
-        if (class(ans) == "try-error") {
+        if (inherits(ans,"try-error")) {
             Status = 1
         } else {
             portfolio = ans
@@ -263,7 +263,7 @@ function(data, spec = portfolioSpec(), constraints = "LongOnly",
                 setTargetReturn(spec) = targetReturns[IDX]
                 # Optimize Efficient Portfolio:
                 ans = try(efficientPortfolio(Data, spec, constraints), silent = TRUE)
-                if (class(ans) == "try-error") {
+                if (inherits(ans,"try-error")) {
                     Status = 1
                 } else {
                     portfolio = ans
